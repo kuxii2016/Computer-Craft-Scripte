@@ -1,0 +1,220 @@
+--Kuxiis Time/day/mon Viewer.!
+--(c)by Kux M. 2016
+
+
+--Locale
+local day = os.day()
+local time = os.time()
+local formattedTime = textutils.formatTime(time, false)
+local mon = peripheral.wrap("back")
+local useShorthand = false
+local useAmPm =  false
+local refreshRate = 1
+local currentYear = 1
+local currentMonth = 1
+local currentDay = 1
+local isLeapYear = (currentYear % 4 == 0 and (currentYear % 100 > 0 or  currentYear % 400 == 0))
+local yearPrefix = "AS (After Spawn)"
+local monthsTable = {
+    {month="Januar", days=28, shorthand="JAN"},
+    {month="Februar", days=28, shorthand="FEB"},
+    {month="Maerch", days=28, shorthand="MAR"},
+    {month="April", days=28, shorthand="APR"},
+    {month="Mai", days=28, shorthand="MAY"},
+    {month="Juni", days=28, shorthand="JUNE"},
+    {month="July", days=28, shorthand="JULY"},
+    {month="August", days=28, shorthand="AUG"},
+    {month="September", days=28, shorthand="SEPT"},
+    {month="Oktober", days=28, shorthand="OCT"},
+    {month="November", days=28, shorthand="NOV"},
+    {month="Dezember", days=28, shorthand="DEC"},
+  }
+local daysTable = {
+    {day="Monday", shorthand="MON"},
+    {day="Tuesday", shorthand="TUE"},
+    {day="Wednesday", shorthand="WED"},
+    {day="Thursday", shorthand="THU"},
+    {day="Friday", shorthand="FRI"},
+    {day="Saturday", shorthand="SAT"},
+    {day="Sunday", shorthand="SUN"},
+  }
+ 
+  local function updateLeapYear(year)
+    isLeapYear = (currentYear % 4 == 0 and (currentYear % 100 > 0 or  currentYear % 400 == 0))
+  end
+ 
+  local function updateYear(days)
+    currentYear = math.floor(days/(isLeapYear and 366 or 365)+1)
+    updateLeapYear(year)
+  end
+ 
+  local function updateMonth(days)
+    local shiftedDays = days%366
+    local d = 0
+    for i = 1, #monthsTable do
+      local before = d
+      if i == 2 and isLeapYear then
+        d = d + 29
+      else
+        d = d + monthsTable[i].days
+      end
+      if shiftedDays >= before and shiftedDays <= d then
+        currentMonth = i
+        return
+      end
+    end
+  end
+ 
+  local function updateDay(days)
+    local shiftedDays = days%366
+    for i = 1, currentMonth - 1 do
+      shiftedDays = shiftedDays - monthsTable[i].days
+    end
+    currentDay = shiftedDays
+  end
+ 
+  local function hexToCol(hex)
+    local num = tonumber(hex, 16)
+    return num ~= nil and 2^num or nil
+  end
+ 
+  local function cwrite(msg, y, offset)
+    local sw,sh=term.getSize()
+    term.setCursorPos(sw/2-#msg/2+(#msg%2 and 0 or 1), (y or (sh/2)) + (offset or 0))
+    write(msg)
+  end
+while true do
+    term.clear()
+	mon.clear()
+    local dayCount = os.day()
+    updateYear(dayCount)
+    updateMonth(dayCount)
+    updateDay(dayCount)
+    cwrite("Aktuelle Zeit: "..textutils.formatTime(os.time(), not useAmPm),nil,-2)
+    cwrite("Aktuelles Datum: "..currentDay.." "..(useShorthand and monthsTable[currentMonth].shorthand or monthsTable[currentMonth].month).." "..string.format("%.4d",currentYear),nil,2)
+	mon.setCursorPos(1,2)
+	mon.setTextScale(1)
+	mon.write("Time: "..textutils.formatTime(os.time(), not useAmPm),nil,-2)
+	mon.setCursorPos(1,4)
+	mon.setTextScale(1)
+    mon.write("Date:"..currentDay.." "..(useShorthand and monthsTable[currentMonth].shorthand or monthsTable[currentMonth].month).." "..string.format("%.4d",currentYear),nil,2)
+	mon.setCursorPos(1,6)
+		if currentDay == 1 then
+		redstone.setBundledOutput("left",0)
+	mon.write("Tag: Montag")end
+	
+		if currentDay == 2 then
+		redstone.setBundledOutput("left",0)
+	mon.write("Tag: Dienstag")end
+	
+		if currentDay == 3 then
+		redstone.setBundledOutput("left",0)
+	mon.write("Tag: Mittwoch")end
+	
+		if currentDay == 4 then
+		redstone.setBundledOutput("left",0)
+	mon.write("Tag: Donnerstag")end
+	
+		if currentDay == 5 then
+		redstone.setBundledOutput("left",0)
+	mon.write("Tag: Freitag")end
+	
+		if currentDay == 6 then
+		redstone.setBundledOutput("left",0)
+	mon.write("Tag: Samstag")end
+	
+		if currentDay == 7 then
+		redstone.setBundledOutput("left", colors.black)
+	mon.write("Tag: Sonntag")end
+	
+		if currentDay == 8 then
+		redstone.setBundledOutput("left",0)
+	mon.write("Tag: Montag")end
+	
+		if currentDay == 9 then
+		redstone.setBundledOutput("left",0)
+	mon.write("Tag: Dienstag")end
+	
+		if currentDay == 10 then
+		redstone.setBundledOutput("left",0)
+	mon.write("Tag: Mittwoch")end
+	
+		if currentDay == 11 then
+		redstone.setBundledOutput("left",0)
+	mon.write("Tag: Donnerstag")end
+	
+		if currentDay == 12 then
+		redstone.setBundledOutput("left",0)
+	mon.write("Tag: Freitag")end
+	
+		if currentDay == 13 then
+		redstone.setBundledOutput("left",0)
+	mon.write("Tag: Samstag")end
+	
+		if currentDay == 14 then
+		redstone.setBundledOutput("left", colors.black)
+	mon.write("Tag: Sonntag")end
+	
+		if currentDay == 15 then
+		redstone.setBundledOutput("left",0)
+	mon.write("Tag: Montag")end
+	
+		if currentDay == 16 then
+		redstone.setBundledOutput("left",0)
+	mon.write("Tag: Dienstag")end
+	
+		if currentDay == 17 then
+		redstone.setBundledOutput("left",0)
+	mon.write("Tag: Mittwoch")end
+	
+		if currentDay == 18 then
+		redstone.setBundledOutput("left",0)
+	mon.write("Tag: Donnerstag")end
+	
+		if currentDay == 19 then
+		redstone.setBundledOutput("left",0)
+	mon.write("Tag: Freitag")end
+	
+		if currentDay == 20 then
+		redstone.setBundledOutput("left",0)
+	mon.write("Tag: Samstag")end
+	
+		if currentDay == 21 then
+		redstone.setBundledOutput("left", colors.black)
+	mon.write("Tag: Sonntag")end
+	
+		if currentDay == 22 then
+		redstone.setBundledOutput("left",0)
+	mon.write("Tag: Montag")end
+	
+		if currentDay == 23 then
+		redstone.setBundledOutput("left",0)
+	mon.write("Tag: Dienstag")end
+	
+		if currentDay == 24 then
+		redstone.setBundledOutput("left",0)
+	mon.write("Tag: Mittwoch")end
+	
+		if currentDay == 25 then
+		redstone.setBundledOutput("left",0)
+	mon.write("Tag: Donnerstag")end
+	
+		if currentDay == 26 then
+		redstone.setBundledOutput("left",0)
+	mon.write("Tag: Freitag")end
+	
+		if currentDay == 27 then
+		redstone.setBundledOutput("left",0)
+	mon.write("Tag: Samstag")end
+	
+		if currentDay == 28 then
+		redstone.setBundledOutput("left", colors.black)
+		redstone.setBundledOutput("left", colors.blue)
+	mon.write("Tag: Sonntag")end
+
+    os.startTimer(refreshRate)
+    os.pullEvent("timer")
+  end
+	mon.setCursorPos(1,8)
+	mon.setTextScale(0.50)
+	mon.write("--Programm by Kuxiisoft--")
