@@ -1,0 +1,767 @@
+-- Vollautomatischer Computercraft-Bahnhof von Kuxii
+
+
+-- Das Programm startet um 00:00 Uhr einmal neu, im Zeitraum von 23:50 bis 00:30 Uhr sollten daher keine Züge liegen !
+-- Um Probleme zu vermeiden, sollten die Abfahrtszeiten min. 20 min auseinanderliegen
+
+		--  Fahrplan für die Züge nach dem Schema plan[n] ändern  --
+
+		--plan[n] = {Uhrzeit komplett,Stunde,Uhrzeit,Fahrziel,Weiche,Zustand(Bereit/Verspätung)}
+plan = {} 
+			
+	   plan[1]    = {0700,07,"07:00","Shoppingmile+Portale",	colors.combine(colors.black)," "}
+	   plan[2]    = {0800,08,"08:00","Stromversorger",	colors.combine(colors.blue)," "}
+	   plan[3]    = {0900,09,"09:00","Shoppingmile+Portale",	colors.combine(colors.black)," "}
+	   plan[4]    = {1000,10,"10:00","Stromversorger",	colors.combine(colors.blue)," "}
+	   plan[5]    = {1100,11,"11:00","Shoppingmile+Portale",	colors.combine(colors.black)," "}
+	   plan[6]    = {1200,12,"12:00","Stromversorger",	colors.combine(colors.blue)," "}
+	   plan[7]    = {1300,13,"13:00","Shoppingmile+Portale",	colors.combine(colors.black)," "}
+	   plan[8]    = {1400,14,"14:00","Stromversorger",	colors.combine(colors.blue)," "}
+	   plan[9]    = {1500,15,"15:00","Shoppingmile+Portale",	colors.combine(colors.black)," "}
+	   plan[10]    = {1600,16,"16:00","Stromversorger",	colors.combine(colors.blue)," "}
+	   plan[11]    = {1700,17,"17:00","Shoppingmile+Portale",	colors.combine(colors.black)," "}
+	   plan[12]    = {1800,18,"18:00","Stromversorger",	colors.combine(colors.blue)," "}	   
+	   plan[13]    = {1900,19,"19:00","Shoppingmile+Portale",	colors.combine(colors.black)," "}
+	   plan[14]    = {2000,20,"20:00","Stromversorger",	colors.combine(colors.blue)," "}
+	   plan[15]    = {2100,21,"21:00","Shoppingmile+Portale",	colors.combine(colors.black)," "}
+	   plan[16]    = {2200,22,"22:00","Stromversorger",	colors.combine(colors.blue)," "}
+	   plan[17]    = {2300,23,"23:00","Shoppingmile+Portale",	colors.combine(colors.black)," "}
+	   plan[18]    = {2350,23,"23:50","Stromversorger",	colors.combine(colors.blue)," "}
+	   plan[19]    = {0100,01,"01:00","Shoppingmile+Portale",	colors.combine(colors.black)," "}
+	   plan[20]    = {0200,02,"02:00","Stromversorger",	colors.combine(colors.blue)," "}
+	   plan[21]    = {0300,03,"03:00","Shoppingmile+Portale",	colors.combine(colors.black)," "}
+	   plan[22]    = {0400,04,"04:00","Stromversorger",	colors.combine(colors.blue)," "}
+	   plan[23]    = {0500,05,"05:00","Shoppingmile+Portale",	colors.combine(colors.black)," "}
+	   plan[24]    = {0600,06,"06:00","Stromversorger",	colors.combine(colors.blue)," "}	   
+	   --  Lager für die Züge --
+		
+	   -- 	zug[n] = {Zug steht auf dem Gleis(Signal Receiver), Zug losschicken }
+zug = {} 
+			zug[1] = {colors.combine(colors.white),colors.combine(colors.red),}
+			zug[2] = {colors.combine(colors.black),colors.combine(colors.red),}
+			zug[3] = {colors.combine(colors.blue),colors.combine(colors.red),}
+			zug[4] = {colors.combine(colors.green),colors.combine(colors.red),}
+			zug[5] = {colors.combine(colors.gray),colors.combine(colors.red),}
+			zug[6] = {colors.combine(colors.orange),colors.combine(colors.red),}
+			zug[7] = {colors.combine(colors.yellow),colors.combine(colors.red),}
+
+			-- Passwort für den Wartungsmodus, Reihenfolge der Zahlen wird mit 1,2,3,4 festgelegt, der Rest muss 0 sein.
+			
+Passwort1 = 0			-- Passwort: 2589 --
+Passwort2 = 1
+Passwort3 = 0
+Passwort4 = 0
+Passwort5 = 2
+Passwort6 = 0
+Passwort7 = 0
+Passwort8 = 3
+Passwort9 = 4
+
+			
+			
+	  -- Interner Plan NICHT ändern -- 
+			
+planint = {}	   
+		planint[1] = {2400,24,"loading"," "," "," "}
+		planint[2] = {2400,24," "," "," "," "}
+		
+made = {}
+
+	made[1] = {"m","a","d","e"," ","b","y"," ","K","u","x","i","i","'","s"}
+
+ -- Festlegen von wichtigen Variablen --
+
+-- Bildschirme 
+mt = peripheral.wrap("top")
+mb = peripheral.wrap("bottom")
+
+-- Animation    Zug fährt über den Bildschirm
+animation			= false				--AN/Aus - Schalter  (true/false)
+animation_length 	= 4					--Dauer der Animation (>= 5 - sonst kann es probleme beim berechnen der Prozente geben) 
+pos 				= -25				--Startposition
+pos_max				= 70				--Endposition
+
+-- Bild animation 
+Bild_Saege= paintutils.loadImage("Dano742.img")
+Bild_Drill= paintutils.loadImage("Dano742_2.img")
+
+x_1 = -45			--Säge Koordinaten
+y_1 = 4
+
+x_2 = 146			-- Drill Koordinaten
+y_2 = 4
+
+--Nicht verändern
+
+count_storage = 0 
+count_send = 0	
+wartungsmodus = false	
+passwort = false
+count = 0
+a = 0
+timer1 = 5
+text = false
+
+-- Laden des gespeicherten Wartungsmoduses true/false --
+
+
+local handle = fs.open("save_passwort", "r")
+
+if handle then
+text = handle.readAll()
+handle.close()
+end		
+		if text == "false" then
+		
+			passwort = false
+		
+		elseif text == "true" then
+		
+			passwort = true
+		
+		end
+		
+		
+		-- Animation beim starten -- 
+
+function Animation()
+	if animation == true then
+		
+		pos2 = math.abs(pos_max - pos) / (animation_length * 10)  -- Wert um den die Position gehoben wird pro Sekunde
+		percent = 100 / math.abs(pos_max - pos)							
+		weg = pos
+		
+		while pos < pos_max do 
+		
+		mb.clear()
+		mb.setBackgroundColor(128)
+		
+		mb.setCursorPos(pos+7,4)
+		mb.write("##")
+		mb.setCursorPos(pos+8,5)
+		mb.write("###")		
+		mb.setCursorPos(pos+8,6)
+		mb.write("|###|")
+		mb.setCursorPos(pos,7)
+		mb.write("________|###|_____")
+		mb.setCursorPos(pos,8)
+		mb.write("|           |    |")
+		mb.setCursorPos(pos,9)
+		mb.write("|           |____|")
+		mb.setCursorPos(pos,10)
+		mb.write("|                |")
+		mb.setCursorPos(pos,11)
+		mb.write("|________________|")
+		mb.setCursorPos(pos+2,12)
+		mb.write("O           O")
+		mb.setBackgroundColor(32768)
+		
+		pos = pos + pos2
+		strecke = pos_max +(math.abs(pos_max - weg) - pos_max  )  - math.abs(pos_max - pos)
+		loading = ((math.ceil(strecke*percent*100))/100)
+		mt.clear()
+		mt.setCursorPos(5,5)
+		mt.write("Loading:  "..loading.."%")	
+		
+		mb.setCursorPos(15,1)
+		mb.write("Loading:  "..loading.."%")
+		
+		
+		sleep(0.1)
+		end
+	sleep(1.5)	
+	end
+end
+Animation()
+
+
+	-- Animation (Dano742) --
+	
+
+	
+function Animation_Dano742()
+
+	mb.setTextScale(0.5)
+	
+	while x_1 <= 25 do
+		mb.clear()
+		term.redirect(mb)		
+		paintutils.drawImage(Bild_Saege,x_1,y_1)
+		paintutils.drawImage(Bild_Drill,x_2,y_2)
+		mb.setBackgroundColor(32768)
+		
+		x_1 = x_1 +1
+		x_2 = x_2 -1.5
+		sleep(0.01)
+		
+	end
+	
+	i = 1
+		while i <=  15 do
+		
+		mb.setCursorPos(48+i,19)
+		mb.write(""..made[1][i].."")
+		sleep(0.1)
+		mb.setCursorPos(48+i,18)
+		mb.write(""..made[1][i].."")
+		
+		mb.setCursorPos(48+i,19)
+		mb.write("  ")
+		i = i +1
+		
+		end
+	sleep(3)
+	mb.clear()
+	mb.setTextScale(1)	
+	
+end
+
+Animation_Dano742()
+
+
+
+	-- Zeit auslesung und Umrechnung ins richtige Format
+
+	
+function ftime()                       
+
+	nHour   = math.floor(os.time())
+	nMinute = math.floor((os.time() - nHour)*60)
+
+	if nHour < 10 then 
+	nHour = ("0"..nHour.."")
+	end
+	
+	if nMinute < 10 then
+	nMinute = ("0"..nMinute.."")	
+	end
+	
+	zeit = nHour..  nMinute
+end
+
+	-- Fahrplan festlegen 1ter Zug (nur beim ersten Start) --
+ftime()	
+
+
+for i = 1, #plan, 1 do 
+
+	if  ((zeit - plan[i] [1])^2)^0.5 <= ((zeit - planint[1] [1])^2)^0.5  and (zeit - plan[i][1])  <= 0  then
+		planint[1] = plan[i]
+	end
+	
+end
+
+
+if planint[1] [3] == "loading" then
+zeit = 0000
+	for i = 1, #plan, 1 do 
+		
+		if  ((zeit - plan[i] [1])^2)^0.5 <= ((zeit - planint[1] [1])^2)^0.5  and (zeit - plan[i][1])  <= 0  then
+			planint[1] = plan[i]
+		end
+		
+	end
+end
+
+
+		-- Berechnung des 2ten Zuges --
+
+		
+function zug_plan2()
+		ftime()
+		planint[2] [1] = 2400
+	 for i = 1, #plan, 1 do 
+			if  ((zeit - plan[i] [1])^2)^0.5 <= ((zeit - planint[2] [1])^2)^0.5  and plan[i] [1] > planint[1] [1]  and (zeit - plan[i] [1]) <= 0 then
+				planint[2] = plan[i]
+			end
+			
+		end		
+
+	
+		if	planint[2] [1] == 2400 then
+			zeit = 0000
+			for i = 1, #plan, 1 do 
+				
+				if  ((zeit - plan[i] [1])^2)^0.5 <= ((zeit - planint[2] [1])^2)^0.5  and (zeit - plan[i][1])  <= 0  then
+				planint[2] = plan[i]
+				end
+				
+				
+			end
+		
+			
+		end
+		
+		if planint[1][1] == planint[2][1] then
+		zeit = planint[1][1] 
+		planint[2] [1] = 2400
+		
+			for i = 1, #plan, 1 do 
+				
+				if  ((zeit - plan[i] [1])^2)^0.5 <= ((zeit - planint[2] [1])^2)^0.5  and (zeit - plan[i][1])  <= 0  then
+				planint[2] = plan[i]
+				end
+				
+				
+			end
+		end
+		
+		mb.clear()
+end
+
+zug_plan2() 	-- (Wird nur beim "ersten Start" ausgeführt) --
+
+
+	-- Check der verfügbaren Züge --	   
+
+	
+function zug_check(zug)
+
+	for i = 1, #zug, 1 do 
+		
+		if redstone.testBundledInput("right",zug [i] [1]) == true then
+		count_storage = count_storage +1
+		zug [i] [3] = "true"
+		else
+		zug [i] [3] = "false"
+		end
+		
+	end   
+   
+end	   
+
+
+-- Schicke Zug aus dem Lager --
+
+
+function zug_send(zug)
+
+	for i = 1, #zug, 1 do
+	
+		if zug [i] [3] == "true" and count_send == 0 then
+		count_send = 1
+        sleep(1)
+		rs.setBundledOutput("right",zug [i] [2])
+		sleep(1)
+		rs.setBundledOutput("right",0)
+		sleep(2)
+		end
+
+	end
+
+end
+
+	--  Hier wird der Zug auf seine Reise geschickt, die Weichen gestellt oder ein neuer Zug aus dem Lager angefordert --
+
+function bahnhof()
+	
+if planint[1][6] == "Verspätung" then 
+
+	if zeit  - planint[1][1] >= 200 then
+	
+		while  zeit - planint[1][1] > 0  do
+			planint[1] = planint [2]
+			planint[2] = {}
+			zug_plan2()
+			sleep(1)
+		end
+	
+	end
+	
+else
+	
+	if planint[1][2] - nHour == 1 then 
+	
+			if math.abs(zeit - planint[1] [1] ) <= 65 and redstone.testBundledInput("left",colors.combine(colors.orange)) == true then  
+			planint[1][6] = "Bereit"
+			else
+			planint[1][6] = "           " 
+			end
+			
+	elseif planint[1][2] - nHour == 0 then	
+	
+	if math.abs(zeit - planint[1] [1] ) <= 25 and redstone.testBundledInput("left",colors.combine(colors.orange)) == true then  
+			planint[1][6] = "Bereit"
+			else
+			planint[1][6] = "           " 
+			end
+	end	
+
+end
+
+	if planint[1][6] == "Bereit" and (zeit - planint[1] [1]) >= 0  then
+		redstone.setBundledOutput("left",colors.combine(colors.red))	
+		sleep(1.50)
+		redstone.setBundledOutput("left",0)	
+		redstone.setBundledOutput("left",planint[1] [5])
+		sleep(4)
+		redstone.setBundledOutput("left",0)	
+		
+		planint[1] = planint [2]
+		planint[2] = {}
+		zug_plan2()
+        sleep(5)
+	end
+
+	
+	
+
+	if redstone.testBundledInput("left",colors.combine(colors.orange)) == false and count_storage > 0 then
+		zug_send(zug)		
+	end
+	
+	
+	if planint[1][2] - nHour == 1 then 
+	
+			if math.abs(zeit - planint[1] [1] ) <= 65 and redstone.testBundledInput("left",colors.combine(colors.orange)) == false  then  
+			planint[1][6] = "Verspätung"
+			end
+	elseif planint[1][2] - nHour == 0 then	
+	
+			if math.abs(zeit - planint[1] [1] ) <= 25 and redstone.testBundledInput("left",colors.combine(colors.orange)) == false  then  
+					planint[1][6] = "Verspätung"
+			end
+			
+	end
+	
+	
+	
+	
+
+	if redstone.testBundledInput("left",colors.combine(colors.orange)) == true and planint[1][6] == "Verspätung" and (zeit - planint[1] [1]) >= 0 then
+		sleep(15)
+		redstone.setBundledOutput("left",colors.combine(colors.red))	
+		sleep(1)
+		redstone.setBundledOutput("left",0)	
+		redstone.setBundledOutput("left",planint[1] [5])
+		sleep(5)
+		redstone.setBundledOutput("left",0)	
+		
+		planint[1] = planint [2]
+		planint[2] = {}
+		zug_plan2()	
+	end
+
+	
+   end
+
+   
+-- Unterer Monitor/Fahrplan
+
+
+function draw_mb()
+
+mb.setTextScale(1)
+mb.setCursorPos(1,1)
+mb.write(""..nHour.." : "..nMinute.."")
+
+
+mb.setCursorPos(1,2)
+mb.write("-------------------------------------------------------------")
+mb.setCursorPos(1,3)
+mb.write("|"..planint[1][3].."|"..planint[1][4].."|")
+mb.setCursorPos(1,4)
+mb.write("-------------------------------------------------------------")
+
+	if planint[1][6] == "Bereit" then 
+		mb.setTextColor(32)
+		else
+		mb.setTextColor(16384)
+	end
+	
+
+mb.setCursorPos(50,3)
+mb.write(""..planint[1][6].."")
+mb.setTextColor(1)
+
+mb.setCursorPos(1,5)
+mb.write("-------------------------------------------------------------")
+mb.setCursorPos(1,6)
+mb.write("|"..planint[2][3].."|"..planint[2][4].."|")
+mb.setCursorPos(1,7)
+mb.write("-------------------------------------------------------------")
+
+end
+
+
+
+	---- Oberer Monitor ----
+
+	
+function draw_mt()
+mt.setTextScale(1)
+mt.setCursorPos(1,1)
+mt.write(""..nHour.." : "..nMinute.."")
+mt.setCursorPos(1,2)
+mt.write("Züge im Lager: ") 
+
+	if count_storage > 1 then
+	mt.setTextColor(32)
+	elseif count_storage == 1 then
+	mt.setTextColor(2)
+	elseif count_storage == 0 then
+	mt.setTextColor(16384)
+	end
+	
+mt.write(""..count_storage.."")
+mt.setTextColor(1)
+
+
+
+mt.setCursorPos(1,3)
+mt.write("Zug im Bahnhof: ") 
+
+if redstone.testBundledInput("left",colors.combine(colors.orange)) == true then
+mt.setTextColor(32)
+mt.write("JA")
+else
+mt.setTextColor(16384)
+mt.write("Nein")
+end
+mt.setTextColor(1)
+
+if wartungsmodus == false  and passwort == false then
+	mt.setCursorPos(14,10)
+	mt.write("Wartungsmodus") 
+
+	mt.setCursorPos(27,10)
+	mt.write("[") mt.setTextColor(2) mt.write("+") mt.setTextColor(1) mt.write("]") 
+	
+elseif wartungsmodus == false  and passwort == true then
+	mt.setCursorPos(14,10)
+	mt.write("Wartungsmodus") 
+
+	mt.setCursorPos(27,10)
+	mt.write("[") mt.setTextColor(32) mt.write("-") mt.setTextColor(1) mt.write("]") 
+end
+
+
+-- Passwortabfrage --
+
+if (wartungsmodus == true or ( x == 28 and y == 10 )) and passwort == false then		-- Startet nur die Passwortabfrage nicht den Wartungmodus ansich
+
+
+mt.setCursorPos(14,10)
+mt.write("                                     ") 
+
+mt.setCursorPos(24,9)
+mt.write("1 2 3")
+mt.setCursorPos(24,10)
+mt.write("4 5 6")
+mt.setCursorPos(24,11)
+mt.write("7 8 9")
+
+if wartungsmodus == true then
+
+
+    if x == 24 and y == 9  then
+      a = a+Passwort1
+	  count = count +1
+    end
+    if x == 26 and y == 9 then
+      a = a+Passwort2
+	  count = count +1
+    end
+    if x == 28 and y == 9 then
+      a = a+Passwort3
+	  count = count +1
+    end
+    if x == 24 and y == 10 then
+      a = a+Passwort4
+	  count = count +1
+    end
+    if x == 26 and y == 10 then
+      a = a+Passwort5
+	  count = count +1
+    end
+    if x == 28 and y == 10 then
+      a = a+Passwort6
+	  count = count +1
+    end
+    if x == 24 and y == 11 then
+      a = a+Passwort7
+	  count = count +1
+    end
+    if x == 26 and y == 11 then
+      a = a+Passwort8
+	  count = count +1
+    end
+    if x == 28 and y == 11 then
+      a = a+Passwort9
+	  count = count +1
+    end
+
+	if count == 1 then
+		mt.setCursorPos(24,12)
+		mt.write("*")
+	end
+	if count == 2 then
+		mt.setCursorPos(24,12)
+		mt.write("**")
+	end
+	if count == 3 then
+		mt.setCursorPos(24,12)
+		mt.write("***")
+	end
+	if count == 4 then
+		mt.setCursorPos(24,12)
+		mt.write("****")
+	end
+
+	
+end
+wartungsmodus = true
+
+if count == 4 then
+
+		if a == 10 then
+		a = 0
+		count = 0
+		wartungsmodus = false
+		passwort = true
+		
+		else
+		a = 0
+		count = 0
+		wartungsmodus = false
+		passwort = false
+		
+		end
+end
+
+	
+end	
+
+
+
+	
+end -- Funktionsende
+
+
+
+
+
+
+	function Touch()
+		while true do
+			event,side,x,y = os.pullEvent()
+		
+				if event == "monitor_touch" then
+				  
+					if side == bottom then
+					x = 0
+					y= 0			
+					end
+				  
+				end
+		end
+	end
+
+
+function Bahn()
+
+	while true do 
+		if passwort == false then
+			zug_check(zug)
+			ftime()
+			bahnhof()
+
+
+
+				mb.clear()
+				mb.setBackgroundColor(32768)
+				draw_mb()
+
+				mt.clear()
+				draw_mt()      --(Wartungsmodus)
+
+				
+			count_storage = 0
+			count_send = 0
+			x = 0
+			y = 0
+			sleep(0.3)
+			
+		elseif passwort == true then
+		
+			mb.clear()
+			mb.setBackgroundColor(2048)
+			mb.setCursorPos(10,6)
+			mb.write("Der Bahnhof wird gewartet")
+			
+			mt.clear()		
+			mt.setCursorPos(10,6)
+			mt.write("Wartung: AN") 
+			mt.setCursorPos(14,10)
+			mt.write("Wartungsmodus") 
+
+			mt.setCursorPos(27,10)
+			mt.write("[") mt.setTextColor(32) mt.write("-") mt.setTextColor(1) mt.write("]") 
+			
+			
+			if  x == 28 and y == 10 then
+				passwort = false
+					while timer1 > 0 do
+					mt.setCursorPos(10,6)
+					mt.write("Neustart in: "..timer1.."") 
+					timer1 = timer1 -1 
+					sleep(1)
+					end
+			os.reboot()
+			end 
+			
+			x = 0
+			y = 0
+			sleep(0.3)
+		end
+	
+	end
+
+end
+
+function Restart()
+	while true do
+		
+			-- Speicherfunktion für den Wartungsmodus --
+		
+			file =  fs.open("save_passwort", "w")
+		
+			if file then
+			file.write(passwort)
+			file.close()
+			end
+		
+			-- Restart wenn der Wartungsmodus aus ist (Wenn 00:00 Uhr oder sich die Zeit um mehr als 5 min ändert)
+	
+		if passwort == false then
+		
+			if math.floor(os.time()) == 00 and math.floor((os.time() - nHour)*60) == 00 and passwort == false  then
+			os.reboot()	
+			end
+				
+				
+			Hour    = math.floor(os.time()) 
+			Minute = math.floor((os.time() - Hour)*60)  
+			
+			if Minute == 59 or Minute == 58 then
+			abstand = 65
+			else
+			abstand = 5
+			end
+			
+			sleep(0.6)
+			
+			if math.abs(math.floor(os.time()) - Hour) > 1 or math.abs(math.floor((os.time() - nHour)*60) - Minute) >= abstand then
+			sleep(1)
+			os.reboot()	
+			end
+			
+		else
+		sleep(1)		
+		end
+		
+	
+	end
+end
+
+parallel.waitForAny(Bahn, Touch,Restart)
