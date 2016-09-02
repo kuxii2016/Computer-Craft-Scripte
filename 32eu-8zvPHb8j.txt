@@ -1,0 +1,119 @@
+local metername = "1.2" --name/id/description of the emeter
+local cableSide = "back" --side of the EU-Detector on the Computer
+local euamount = 32 --your maximum EU/t Transfer -- MFSU=512 -- MFE=128 -- BatBox=32 -- SolarCell=1
+local cost = 0.12 --Coins per kEU/sec
+local title = "Electrical Meter"
+local enableT = "false" --enables [CTRL] + [T]
+local ecke = "eMeter 1.5 - mieper.de " --name of your company
+if enableT=="false" then
+os.pullEvent = os.pullEventRaw --Verhindert Programm beenden
+else
+end
+local width, height = term.getSize() --Store the size of the screen
+local timeSinceActive = 0
+local eumeter = 0
+local euconsumed = 0
+local timeSincerun = 0
+local timeSincerunSec = 0
+local euconsumedkilo = 0
+local cost1 = 0
+local emeterid = os.getComputerID()
+a = fs.open("cache1", "r")
+	timeSinceActive = a.readLine()
+	a.close()
+a = fs.open("cache2", "r")
+	eumeter = a.readLine()
+	a.close()
+a = fs.open("cache3", "r")
+	euconsumed = a.readLine()
+	a.close()
+a = fs.open("cache4", "r")
+	timeSincerun = a.readLine()
+	a.close()
+a = fs.open("cache5", "r")
+	timeSincerunSec = a.readLine()
+	a.close()
+a = fs.open("cache6", "r")
+	euconsumedkilo = a.readLine()
+	a.close()
+a = fs.open("cache7", "r")
+	cost1 = a.readLine()
+	a.close()
+local function clearScreen()
+  term.clear() --Clear the screen
+  term.setCursorPos(1, 1)
+  term.write(title) --title
+  term.setCursorPos(width-#ecke+1, height)
+  term.write(ecke)
+end
+local function doTick()
+  if (redstone.getInput(cableSide) == true) then
+  timeSinceActive = timeSinceActive + 1
+  timeSincerun = timeSincerun + 1
+		eumeter = eumeter + 1
+	if timeSincerun >= 10 then
+		timeSincerun = 0
+		timeSincerunSec = timeSincerunSec + 1
+	end
+  end
+  clearScreen()
+  term.setCursorPos(1, 3)
+  term.write("Running time: ")
+  term.setCursorPos(30, 3)
+  term.write(timeSincerunSec)
+  term.write (" sec.")
+  euconsumed = euamount * eumeter / 10 * 2
+  euconsumedkilo = euconsumed / 100
+  term.setCursorPos(1, 4)
+  term.write("Consumed EU: ")
+  term.setCursorPos(30, 4)
+  term.write(euconsumedkilo)
+  term.write(" kEU/sec")
+  cost1 = cost * euconsumedkilo
+  term.setCursorPos(1, 5)
+  term.write("Current Cost: ")
+  term.setCursorPos(30, 5)
+  term.write (cost1)
+  term.write (" Coins")
+  term.setCursorPos(1, 8)
+  term.write("EU Packet size: ")
+  term.setCursorPos(30, 8)
+  term.write (euamount)
+  term.write (" EU")
+  term.setCursorPos(1, 9)
+  term.write("Cost per kEU/sec: ")
+  term.setCursorPos(30, 9)
+  term.write (cost)
+  term.write (" Coins")
+  term.setCursorPos(1, 12)
+  term.write("eMeter Name: ")
+  term.setCursorPos(30, 12)
+  term.write (metername)
+  term.setCursorPos(1, 13)
+  term.write("eMeter ID: ")
+  term.setCursorPos(30, 13)
+  term.write (emeterid)
+a = fs.open("cache1", "w")
+	a.write (timeSinceActive)
+	a.close()
+a = fs.open("cache2", "w")
+	a.write (eumeter)
+	a.close()
+a = fs.open("cache3", "w")
+	a.write (euconsumed)
+	a.close()
+a = fs.open("cache4", "w")
+	a.write (timeSincerun)
+	a.close()
+a = fs.open("cache5", "w")
+	a.write (timeSincerunSec)
+	a.close()
+a = fs.open("cache6", "w")
+	a.write (euconsumedkilo)
+	a.close()
+a = fs.open("cache7", "w")
+	a.write (cost1)
+	a.close()
+  sleep(0.10)
+end
+while true do doTick() end

@@ -1,0 +1,117 @@
+-- This scrip uses both IC2 and RP2 mods
+-- Wiring setup is as follows:
+--  Reactor Power: White
+--  EU Detector: Yellow
+--  First storage from reactor(eg. MFE): Red (set to imit redstone on full)
+--  Last storage from reactor: Orange (set to imit redstone on empty)
+--  Default: Monitor on back and bundled wire on top
+
+--  Schaltplan can find you on
+--  http://www.computercraft.info/forums2/index.php?app=core&module=attach&section=attach&attach_rel_module=post&attach_id=135
+
+-- Initial Setup
+local monitor = peripheral.wrap("top") -- Chnage "back" to side of your monitor
+local nSide = "back" -- change to side of your bundled cable
+local reactorOffNum = colours.white
+local reactorOn = false
+local stateChange = 0
+local state = 10
+rs.setBundledOutput( nSide, reactorOffNum)
+term.clear()
+term.setCursorPos(1,1)
+print("Welcome to The Reactor Controller!")
+
+-- Refresh the monitor
+function refresh(omg)
+term.redirect( monitor )
+term.clear()
+term.setCursorPos(1,1)
+term.write("Reactor: ")
+if omg then -- omg true in error state
+  print("ERROR")
+  return
+end
+if reactorOn then print("On")
+else print("Off")
+end
+term.write("Proccess: ")
+if state == 1 then print("Turning Off")
+elseif state == 3 then print("Turning On")
+else print("Doing Nothing")
+end
+term.write("Out of uranium: ")
+if state == 6 or state == 7 then print("Yes")
+else print("No")
+end
+term.restore()
+end
+
+-- Get inputs and place in array
+function checkStatus()
+local full = rs.testBundledInput( nSide, colours.red)
+local empty = rs.testBundledInput( nSide, colours.orange)
+local current = rs.testBundledInput( nSide, colours.yellow)
+if reactorOn then areactor = true
+  else areactor = false
+end
+return{full, empty, current, areactor}
+end
+
+-- Choose defined states from all inputs and outputs
+function detectState(stateIn)
+if stateIn[1] and stateIn[4] then
+state = 1
+elseif stateIn[1] and not stateIn[4] or not stateIn[1] and not stateIn[2] and not stateIn[4] then
+state = 2
+elseif stateIn[2] and not stateIn[4] then
+state = 3
+elseif stateIn[2] and stateIn[4] and stateIn[3] then
+state = 4
+elseif not stateIn[1] and not stateIn[2] and stateIn[3] and stateIn[4] then
+state = 5
+elseif not stateIn[1] and not stateIn[2] and not stateIn[3] and stateIn[4] then
+state = 6
+elseif not stateIn[1] and stateIn[2] and not stateIn[3] and stateIn[4] then
+state = 7
+else
+state = 8
+end
+end
+
+-- Change Outputs based on current state and report on computer
+function setOutput()
+if state == 1 then
+  rs.setBundledOutput( nSide, reactorOffNum)
+  reactorOn = false
+  print("Turning reactor off.")
+elseif state == 3 then
+  rs.setBundledOutput( nSide, 0)
+  reactorOn = true
+  print("Turning reactor on")
+end
+end
+-- Display current display on computer
+function printState()
+print("Current state: ", state)
+stateChange = state
+end
+
+-- Main loop
+while true do
+local currentStatus = checkStatus()
+detectState(currentStatus)
+setOutput()
+if state == 8 then -- If Error state tell user of error
+  refresh(true)
+  print("ERROR! Closing")
+  rs.setBundledOutput( nSide, reactorOffNum)
+  print("<Full: ", currentStatus[1], "> <Empty: ", currentStatus[2], ">")
+  print("<Current: ", currentStatus[3], "> <Reactor: ", currentStatus[4], ">")
+  return
+  end
+if stateChange ~= state then
+  refresh(false)
+  printState()
+end
+sleep(1)
+end

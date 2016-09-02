@@ -1,0 +1,199 @@
+--------------------------------------------------------------
+--														    --
+--		    AKW-Statusmonitor v0.1 by N0B0DY19    			--
+--														    --
+--		         www.Infinitysilence.de                     --
+--                          							    --
+--		                                        		  	--
+--														    --
+--		                        						    --
+--		                                     			    --
+--														    --
+--		                             					    --
+--		                        						    --
+--                      (C)N0B0DY19                         --
+--------------------------------------------------------------
+
+
+monitor = peripheral.wrap("top")
+eingang = "bottom"		-- Eingang des Hauptkabels
+schalter = "top"		-- Reaktorstop
+
+-- Eingänge..       --
+hellgrau = 256		--  Reactor A
+grau = 128			--  Reactor B 
+hellblau = 8		--  Reactor C
+blau = 2048			--  Reactor D 
+-- Eingänge END..   --
+
+weiss = 1			--  
+orange = 2			--  
+magenta = 4			--  
+gelb = 16			--  
+hellgruen = 32		--  
+pink = 64			--  
+cyan = 512			--  
+lila = 1024			--  
+braun = 4096		--  
+gruen = 8192		--  
+rot = 16384			--  
+schwarz = 32768 	--  
+
+
+bla = 0
+
+block1posx = 5
+block1posy = 4
+
+tackerx = 7
+tackery = 2
+
+dings = 0
+
+pause = 1
+
+function menu()
+	monitor.setBackgroundColor(schwarz)
+	monitor.setCursorPos(1, 1)
+	monitor.write("----------------- Betriebs Zeiten ----------------")
+	while dings < 13 do
+		monitor.setCursorPos(6, dings )
+		monitor.write(" ")
+		dings = dings + 1
+	end
+	monitor.setCursorPos(1, 3)
+	monitor.write("Reactor ")
+	monitor.setCursorPos(1, 4)
+	monitor.write("      A ")
+	
+	monitor.setCursorPos(1, 5)
+	monitor.write("Reactor ")
+	monitor.setCursorPos(1, 6)
+	monitor.write("      B ")
+	
+	monitor.setCursorPos(1, 7)
+	monitor.write("Reactor ")
+	monitor.setCursorPos(1, 8)
+	monitor.write("      C ")
+	
+	monitor.setCursorPos(1, 9)
+	monitor.write("Reactor ")
+	monitor.setCursorPos(1, 10)
+	monitor.write("      D ")
+end
+
+function block1()
+	if (colors.test(rs.getBundledInput(eingang), colors.lightGray)) then
+		monitor.setBackgroundColor(schwarz)
+		monitor.setCursorPos(tackerx+1, block1posy)
+		monitor.write("  ")
+		monitor.setCursorPos(tackerx+1, block1posy-1)
+		monitor.write("  ")
+		monitor.setCursorPos(tackerx, block1posy-1)
+		monitor.setBackgroundColor(rot)
+		monitor.write("x")
+	else
+		monitor.setCursorPos(tackerx+1, block1posy)
+		monitor.setBackgroundColor(schwarz)
+		monitor.write("  ")
+		monitor.setCursorPos(tackerx+1, block1posy-1)
+		monitor.write("  ")		
+		monitor.setCursorPos(tackerx, block1posy)
+		monitor.setBackgroundColor(hellgruen)
+		monitor.write("X")
+	end
+end
+
+function block2()
+	if (colors.test(rs.getBundledInput(eingang), colors.gray)) then
+		monitor.setBackgroundColor(schwarz)
+		monitor.setCursorPos(tackerx+1, block1posy+2)
+		monitor.write("  ")
+		monitor.setCursorPos(tackerx+1, block1posy+1)
+		monitor.write("  ")
+		monitor.setCursorPos(tackerx, block1posy+1)
+		monitor.setBackgroundColor(rot)
+		monitor.write("x")
+	else
+		monitor.setCursorPos(tackerx+1, block1posy+2)
+		monitor.setBackgroundColor(schwarz)
+		monitor.write("  ")
+		monitor.setCursorPos(tackerx+1, block1posy+1)
+		monitor.write("  ")		
+		monitor.setCursorPos(tackerx, block1posy+2)
+		monitor.setBackgroundColor(hellgruen)
+		monitor.write("X")
+	end
+end
+
+function block3()
+	if (colors.test(rs.getBundledInput(eingang), colors.lightBlue)) then
+		monitor.setBackgroundColor(schwarz)
+		monitor.setCursorPos(tackerx+1, block1posy+4)
+		monitor.write("  ")
+		monitor.setCursorPos(tackerx+1, block1posy+3)
+		monitor.write("  ")
+		monitor.setCursorPos(tackerx, block1posy+3)
+		monitor.setBackgroundColor(rot)
+		monitor.write("x")
+	else
+		monitor.setCursorPos(tackerx+1, block1posy+4)
+		monitor.setBackgroundColor(schwarz)
+		monitor.write("  ")
+		monitor.setCursorPos(tackerx+1, block1posy+3)
+		monitor.write("  ")		
+		monitor.setCursorPos(tackerx, block1posy+4)
+		monitor.setBackgroundColor(hellgruen)
+		monitor.write("X")
+	end
+end
+
+function block4()
+	if (colors.test(rs.getBundledInput(eingang), colors.blue)) then
+		monitor.setBackgroundColor(schwarz)
+		monitor.setCursorPos(tackerx+1, block1posy+6)
+		monitor.write("  ")
+		monitor.setCursorPos(tackerx+1, block1posy+5)
+		monitor.write("  ")
+		monitor.setCursorPos(tackerx, block1posy+5)
+		monitor.setBackgroundColor(rot)
+		monitor.write("x")
+	else
+		monitor.setCursorPos(tackerx+1, block1posy+6)
+		monitor.setBackgroundColor(schwarz)
+		monitor.write("  ")
+		monitor.setCursorPos(tackerx+1, block1posy+5)
+		monitor.write("  ")		
+		monitor.setCursorPos(tackerx, block1posy+6)
+		monitor.setBackgroundColor(hellgruen)
+		monitor.write("X")
+	end
+end
+
+
+while bla < 1 do
+	monitor.setBackgroundColor(schwarz)
+	menu()
+	monitor.setCursorPos(tackerx, tackery)
+	monitor.write("*")
+	monitor.setCursorPos(tackerx-1, tackery)
+	monitor.write(" ")
+	monitor.setCursorPos(tackerx, tackery+10)
+	monitor.write("*")
+	monitor.setCursorPos(tackerx-1, tackery+10)
+	monitor.write(" ")
+	block1()
+	block2()
+	block3()
+	block4()
+	tackerx = tackerx + 1	
+	if tackerx >= 50 then 
+		monitor.setBackgroundColor(schwarz)
+		monitor.setCursorPos(tackerx-1, tackery)
+		monitor.write(" ")
+		monitor.setCursorPos(tackerx-1, tackery+10)
+		monitor.write(" ")
+		tackerx = 7
+	end
+	sleep(pause)
+end

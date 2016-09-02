@@ -1,0 +1,23 @@
+local function pulseCount(side)
+    local pulses = 0
+    local rsState = false
+    local pulseTimeout = os.startTimer(5)
+    while true do
+        local e, p = os.pullEvent()
+        --If the timer is up, break the loop.
+        if e == "timer" and p == pulseTimeout then
+            break
+        elseif e == "redstone" then
+            --If the redstone input on the specified side has changed, update the state variable.
+            if rs.getInput(side) ~= rsState then
+                pulseTimeout = os.startTimer(5)
+                rsState = rs.getInput(side)
+                --If the input just went low, the pulse just ended. Increment the counter.
+                if rsState == false then
+                    pulses = pulses + 1
+                end
+            end
+        end
+    end
+    return pulses
+end

@@ -1,0 +1,39 @@
+ _  __ _    ___  _ _  _  ____  ____  _____ _____ 
+/ |/ // \ /\\  \/// \/ \/ ___\/  _ \/    //__ __\
+|   / | | || \  / | || ||    \| / \||  __\  / \  
+|   \ | \_/| /  \ | || |\___ || \_/|| |     | |  
+\_|\_\\____//__/\\\_/\_/\____/\____/\_/     \_/  
+  
+//]--
+Settings For the Programm Energy Viewer
+From KuxiiSoft.Do not edit the File.
+Have you Edit the File and you become
+An Error We shall not be..!!
+\\]--
+
+#Display Settings
+2x3
+
+#Color's Screen 
+True
+
+#Update Intervall
+0.5
+
+#Laguane
+"EN"
+
+#Licence
+trial
+
+#Logs
+Fale
+
+#Auto Update
+false
+
+#sound output
+false
+
+#Version
+0.0.1B

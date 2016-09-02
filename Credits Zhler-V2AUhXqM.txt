@@ -1,0 +1,26 @@
+local credits = "credits"
+local zaehlside = "left"
+local creditside ="right"
+ term.clear()
+ term.setCursorPos(4,4)
+sleep(1)
+print("Bezahlsystem:")
+  print("Deine Einzahlung,")
+   write("$")
+   credits = read()
+   sleep(1)
+
+while true do
+     term.clear()
+     term.setCursorPos(2,2)
+     print("Guthaben: $"..credits)
+     os.pullEvent("redstone")
+     if rs.getInput(zaehlside) then
+     credits = credits - 1
+   end
+   end
+      if credits == 0 then
+     print("Guthaben:$ "..credits)
+     else
+     print(credits)
+end

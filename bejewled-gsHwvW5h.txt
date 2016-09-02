@@ -1,0 +1,336 @@
+local board = {}
+local score = 0
+local time = 600
+
+local gems = {
+	{'%.', '%%', color = colors.yellow},
+	{'$.', '$$', color = colors.lime},
+--	{'&.', '&&', color = colors.orange},
+	{'#.', '##', color = colors.red},
+	{'@a', '@@', color = colors.magenta},
+	{'/\\','\\/', color = colors.lightBlue}
+}
+
+local selection
+local draw, drawGem, drawScore, drawTime, animSwap
+
+local running = true
+
+local function fillBoard(width, height)
+	for y = 1, height do
+		board[y] = {}
+		for x = 1, width do
+			board[y][x] = math.random(#gems)
+		end
+	end
+	
+	setmetatable(board, {__call = function(self, x, y, value)
+		if not self[y] then return end
+		if not self[y][x] then return end
+		self[y][x] = value or self[y][x]
+		return self[y][x]
+	end})
+	
+	board.width = width
+	board.height = height
+end
+
+local function gemArea(x, y)
+	return x*3 - 1, y*3 - 1, 2, 2
+end
+
+local function checkArea(x, y, ax, ay, aw, ah)
+	return
+		x >= ax and
+		x < ax + aw and
+		y >= ay and
+		y < ay + ah
+end
+
+local function findMatch(ox, oy)
+	local value = board(ox, oy)
+	if value == 0 then return end
+	local rowTotal = 0
+	local colTotal = 0
+	local rowMatches = {}
+	local colMatches = {}
+	
+	local function checkSpace(x, y, isRow)
+		if board(x, y) == value then
+			if isRow then
+				rowTotal = rowTotal + 1
+				table.insert(rowMatches, {x=x, y=y})
+			else
+				colTotal = colTotal + 1
+				table.insert(colMatches, {x=x, y=y})
+			end
+			return true
+		end
+	end
+	
+	for x=ox, 1, -1 do
+		if not checkSpace(x, oy, true) then break end
+	end
+	for x=ox + 1, board.width, 1 do
+		if not checkSpace(x, oy, true) then break end
+	end
+	for y=oy, 1, -1 do
+		if not checkSpace(ox, y) then break end
+	end
+	for y=oy + 1, board.height, 1 do
+		if not checkSpace(ox, y) then break end
+	end
+	
+	local matches = {}
+	local function addFrom(tab, cond)
+		if cond then
+			for i=1, #tab do
+				table.insert(matches, tab[i])
+			end
+		end
+	end
+	addFrom(rowMatches, rowTotal >= 3)
+	addFrom(colMatches, colTotal >= 3)
+	
+	if #matches >= 3 then
+		return matches
+	end
+end
+
+local function replaceGems()
+	local blanks
+	repeat
+		blanks = false
+		for bx=1, board.width do
+			for by=1, board.height do
+				if board(bx, by) == 0 then
+					for y=by - 1, 0, -1 do
+						if y > 0 then
+							board(bx, y + 1, board(bx, y))
+						else
+							board(bx, y + 1, math.random(#gems))
+						end
+						drawGem(bx*3-1, (y+1)*3-1, gems[board(bx, y + 1)])
+					end
+					sleep(0.05)
+					blanks = true
+				end
+			end
+		end
+	until not blanks
+end
+
+local function clearMatches()
+	draw()
+	
+	local redo = true
+	local scoreInc = 1
+	
+	while redo do
+		redo = false
+		local totalMatches = {}
+		for bx=1, board.width do
+			for by=1, board.height do
+				local matches = findMatch(bx, by)
+				
+				if matches then
+					for i=1, #matches do
+						local m = matches[i]
+						totalMatches[m.x..','..m.y] = board(m.x, m.y)
+						drawGem(m.x*3 - 1, m.y*3 - 1, gems[board(m.x, m.y)], colors.white)
+					end
+				end
+			end
+		end
+		sleep(0.2)
+		for pos, id in pairs(totalMatches) do
+			local x,y = pos:match('(%d+),(%d+)')
+			board(tonumber(x), tonumber(y), 0)
+			redo = true
+			score = score + scoreInc
+			scoreInc = scoreInc + 1
+			
+			drawGem(x*3 - 1, y*3 - 1)
+			drawScore()
+			sleep(0.1)
+		end
+		
+		if redo then
+			replaceGems()
+		end
+	end
+end
+
+local function update(ev, p1, p2, p3)
+	if ev == 'mouse_click' or ev == 'mouse_drag' then
+		local b, mx, my = p1, p2, p3
+		
+		-- it's like the brooklyn bridge up in this yo
+		;(function()
+			for bx=1, board.width do
+				for by=1, board.height do
+					if checkArea(mx, my, gemArea(bx, by)) then
+						if ev == 'mouse_click' then
+							selection = {bx, by}
+							return
+						elseif ev == 'mouse_drag' and selection then
+							local s = selection
+							local dist = ((bx - s[1])^2 + (by - s[2])^2)^.5
+							if dist == 1 then
+								local cur = board(bx, by)
+								animSwap(bx*3-1, by*3-1, s[1]*3-1, s[2]*3-1, cur, board(unpack(s)))
+								
+								board(bx, by, board(unpack(s)))
+								board(s[1], s[2], cur)
+								
+								clearMatches()
+								
+								selection = nil
+								return
+							end
+						end
+					end
+				end
+			end
+		end)()
+	elseif ev == 'key' and p1 == keys.backspace then
+		running = false
+	end
+end
+
+local function updateTime()
+	while time > 0 do
+		time = time - 1
+		drawTime()
+		sleep(0.1)
+	end
+end	
+
+function drawScore()
+	local t = term
+	local score = tostring(score)
+	
+	t.setCursorPos(30, 2)
+	t.setTextColor(colors.yellow)
+	t.write('SCORE: '..score)
+end
+
+function drawTime()
+	local t = term
+	
+	t.setCursorPos(30, 4)
+	t.setTextColor(colors.yellow)
+	t.write('TIME:  '..time..'     ')
+end
+
+function drawGem(x, y, gem, color)
+	local t = term
+	if t.isColor() and gem then
+		t.setTextColor(color or gem.color)
+	end
+	t.setCursorPos(x, y)
+	t.write(gem and gem[1] or '  ')
+	t.setCursorPos(x, y + 1)
+	t.write(gem and gem[2] or '  ')
+end
+
+function animSwap(x1, y1, x2, y2, v1, v2)
+	for x=x1, x2, x1 < x2 and 1 or -1 do
+		for y=y1, y2, y1 < y2 and 1 or -1 do
+			local ox, oy = x2 - x + x1, y2 - y + y1
+			drawGem(x, y, gems[v1])
+			drawGem(ox, oy, gems[v2])
+			sleep(0.05)
+			drawGem(x, y)
+			drawGem(ox, oy)
+		end
+	end
+end
+
+function draw()
+	local t = term
+	
+	t.setBackgroundColor(colors.black)
+	t.clear()
+	
+	for x=1, board.width do
+		for y=1, board.height do
+			drawGem(x*3 - 1, y*3 - 1, gems[board(x, y)])
+		end
+	end
+	
+	drawScore()
+end
+
+local function pregame()
+	draw()
+	drawTime()
+	
+	local t = term
+	
+	local function sw(y, text)
+		t.setCursorPos(30, y)
+		textutils.slowWrite(text)
+	end
+	
+	t.setTextColor(colors.yellow)
+	t.setCursorPos(30, 6)
+	sw(6, 'PRESS ANY KEY')
+	sw(7, 'WHEN READY')
+	
+	repeat
+		local ev = os.pullEvent()
+	until ev == 'key' or ev == 'mouse_click'
+	
+	sw(7, '          ')
+	sw(6, 'READY        ')
+	sleep(0.1)
+	sw(6, '             ')
+	sw(6, 'SET          ')
+	sw(6, '             ')
+	sleep(math.random()*1.5 + 0.5)
+	
+	t.setCursorPos(30, 6)
+	t.write('GO')
+	sleep(0.2)
+	sw(6, '  ')
+end
+
+local function gameOver()
+	local t = term
+	t.setTextColor(colors.yellow)
+	
+	local function sw(y, text)
+		t.setCursorPos(30, y)
+		textutils.slowWrite(text)
+	end
+	
+	sw(6, 'PRESS ANY KEY')
+	sw(7, 'TO CONTINUE')
+	
+	repeat
+		local ev = os.pullEvent()
+	until ev == 'key' or ev == 'mouse_click'
+	
+	t.setBackgroundColor(colors.black)
+	t.setCursorPos(1,1)
+	t.clear()
+  shell.run("gui")
+end
+
+local function main()
+	while running do
+		local events = {os.pullEvent()}
+		if events[1] ~= 'timer' then
+			draw()
+		end
+		update(unpack(events))
+	end
+end
+
+fillBoard(8, 6)
+pregame()
+
+parallel.waitForAny(main, updateTime)
+
+gameOver()

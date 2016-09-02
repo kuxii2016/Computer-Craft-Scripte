@@ -1,0 +1,18 @@
+	
+
+    --[Taganzeige-
+     
+    local monitor = peripheral.wrap("top")
+    local tag = os.day()
+    local time = os.time()
+    monitor.clear()
+     
+    monitor.setCursorPos(1,1)
+    monitor.write("Tag: ")
+    monitor.write(tag)
+     
+    monitor.setCursorPos(1,2)
+    monitor.write("Time: ")
+    monitor.write(time)
+    sleep(10)
+    os.reboot()

@@ -1,0 +1,254 @@
+--# Reactor Monitoring by N0B0DY19 #--
+--        Apis
+os.loadAPI("ocs/apis/sensor")                  
+os.loadAPI("ProgressBar")
+--Inputs/Outputs
+local prox = sensor.wrap("right")                  
+ProgressBar.SetPeripheral("left")              
+local monitor = peripheral.wrap("left") 
+eingang = "back"
+hellgrau = 256
+grau = 128
+hellblau = 8
+blau = 2048
+weiss = 1
+orange = 2
+magenta = 4
+gelb = 16
+hellgruen = 32
+pink = 64 
+cyan = 512
+lila = 1024
+braun = 4096
+gruen = 8192
+rot = 16384 
+schwarz = 32768 
+--    Monitor Druck
+monitor.setCursorPos(1,1)
+monitor.write("Max. Leistung")
+monitor.setCursorPos(1,2)
+monitor.write("3456mB/t or 1080EU/T")
+--      Leistung
+while 0 < 99999999999999999999999999999999999999999999999999999999999999999999999999999999 do
+monitor.setCursorPos(27, 11)
+monitor.write(" Leistung")
+ProgressBar.SetTable("Leistung", 1080, 0, 1,25,11)
+ProgressBar.DrawToPeripheral()
+--       Temp
+monitor.setCursorPos(27, 9)
+monitor.write(" Temp")
+ProgressBar.SetTable("Temp", 2000, 0, 1,25,9)
+ProgressBar.DrawToPeripheral()
+--    Reactor Prüfung 
+if (colors.test(rs.getBundledInput(eingang), colors.blue)) then
+monitor.setCursorPos(1,4)
+monitor.write("Reactor is : [OFF]")
+
+ProgressBar.SetCurValue("Leistung",0)
+ProgressBar.DrawToPeripheral()
+sleep(0.1)
+
+ProgressBar.SetCurValue("Leistung",0)
+ProgressBar.DrawToPeripheral()
+sleep(0.1)
+
+else
+monitor.setCursorPos(1,4)
+monitor.write("Reactor is : [ON ]")
+
+ProgressBar.SetCurValue("Leistung",1080)
+ProgressBar.DrawToPeripheral()
+sleep(0.5)
+
+ProgressBar.SetCurValue("Leistung",1010)
+ProgressBar.DrawToPeripheral()
+sleep(0.5)
+
+ProgressBar.SetCurValue("Leistung",1000)
+ProgressBar.DrawToPeripheral()
+sleep(0.5)
+
+ProgressBar.SetCurValue("Leistung",1020)
+ProgressBar.DrawToPeripheral()
+sleep(0.5)
+
+ProgressBar.SetCurValue("Leistung",1050)
+ProgressBar.DrawToPeripheral()
+sleep(0.5)
+
+ProgressBar.SetCurValue("Leistung",1080)
+ProgressBar.DrawToPeripheral()
+sleep(1)
+
+ProgressBar.SetCurValue("Leistung",1080)
+ProgressBar.DrawToPeripheral()
+sleep(1)
+
+ProgressBar.SetCurValue("Leistung",1080)
+ProgressBar.DrawToPeripheral()
+sleep(1)
+
+ProgressBar.SetCurValue("Leistung",1080)
+ProgressBar.DrawToPeripheral()
+sleep(1)
+
+ProgressBar.SetCurValue("Leistung",1080)
+ProgressBar.DrawToPeripheral()
+sleep(1)
+
+if (colors.test(rs.getBundledInput(eingang), colors.red)) then
+monitor.setCursorPos(1,6)
+monitor.write("Reactor is : [COOL]")
+
+ProgressBar.SetCurValue("Temp",50)
+ProgressBar.DrawToPeripheral()
+sleep(0.5)
+
+ProgressBar.SetCurValue("Temp",50)
+ProgressBar.DrawToPeripheral()
+sleep(0.5)
+
+ProgressBar.SetCurValue("Temp",100)
+ProgressBar.DrawToPeripheral()
+sleep(0.5)
+
+ProgressBar.SetCurValue("Temp",110)
+ProgressBar.DrawToPeripheral()
+sleep(0.5)
+
+ProgressBar.SetCurValue("Temp",120)
+ProgressBar.DrawToPeripheral()
+sleep(0.5)
+
+ProgressBar.SetCurValue("Temp",110)
+ProgressBar.DrawToPeripheral()
+sleep(1)
+
+ProgressBar.SetCurValue("Temp",100)
+ProgressBar.DrawToPeripheral()
+sleep(1)
+
+ProgressBar.SetCurValue("Temp",80)
+ProgressBar.DrawToPeripheral()
+sleep(1)
+
+ProgressBar.SetCurValue("Temp",65)
+ProgressBar.DrawToPeripheral()
+sleep(1)
+
+ProgressBar.SetCurValue("Temp",50)
+ProgressBar.DrawToPeripheral()
+sleep(1)
+
+else
+
+monitor.setCursorPos(1,6)
+monitor.write("Reactor is : [HOT]")
+
+ProgressBar.SetCurValue("Temp",100)
+ProgressBar.DrawToPeripheral()
+sleep(1)
+
+ProgressBar.SetCurValue("Temp",200)
+ProgressBar.DrawToPeripheral()
+sleep(2)
+
+ProgressBar.SetCurValue("Temp",300)
+ProgressBar.DrawToPeripheral()
+sleep(2)
+
+ProgressBar.SetCurValue("Temp",400)
+ProgressBar.DrawToPeripheral()
+sleep(2)
+
+ProgressBar.SetCurValue("Temp",500)
+ProgressBar.DrawToPeripheral()
+sleep(2)
+
+ProgressBar.SetCurValue("Temp",600)
+ProgressBar.DrawToPeripheral()
+sleep(2)
+
+ProgressBar.SetCurValue("Temp",700)
+ProgressBar.DrawToPeripheral()
+sleep(2)
+
+ProgressBar.SetCurValue("Temp",800)
+ProgressBar.DrawToPeripheral()
+sleep(2)
+
+ProgressBar.SetCurValue("Temp",900)
+ProgressBar.DrawToPeripheral()
+sleep(2)
+
+ProgressBar.SetCurValue("Temp",1100)
+ProgressBar.DrawToPeripheral()
+sleep(2)
+
+ProgressBar.SetCurValue("Temp",1100)
+ProgressBar.DrawToPeripheral()
+sleep(1)
+
+ProgressBar.SetCurValue("Temp",1100)
+ProgressBar.DrawToPeripheral()
+sleep(5)
+
+ProgressBar.SetCurValue("Temp",1100)
+ProgressBar.DrawToPeripheral()
+sleep(1)
+
+ProgressBar.SetCurValue("Temp",1100)
+ProgressBar.DrawToPeripheral()
+sleep(1)
+
+ProgressBar.SetCurValue("Temp",1100)
+ProgressBar.DrawToPeripheral()
+sleep(1)
+
+ProgressBar.SetCurValue("Temp",1100)
+ProgressBar.DrawToPeripheral()
+sleep(1)
+
+ProgressBar.SetCurValue("Temp",1100)
+ProgressBar.DrawToPeripheral()
+sleep(1)
+
+ProgressBar.SetCurValue("Temp",1100)
+ProgressBar.DrawToPeripheral()
+sleep(1)
+
+ProgressBar.SetCurValue("Temp",1100)
+ProgressBar.DrawToPeripheral()
+sleep(1)
+
+ProgressBar.SetCurValue("Temp",1100)
+ProgressBar.DrawToPeripheral()
+sleep(2)
+
+ProgressBar.SetCurValue("Temp",1100)
+ProgressBar.DrawToPeripheral()
+sleep(1)
+
+ProgressBar.SetCurValue("Temp",1100)
+ProgressBar.DrawToPeripheral()
+sleep(1)
+
+ProgressBar.SetCurValue("Temp",1100)
+ProgressBar.DrawToPeripheral()
+sleep(2)
+
+ProgressBar.SetCurValue("Temp",1100)
+ProgressBar.DrawToPeripheral()
+sleep(1)
+
+ProgressBar.SetCurValue("Temp",1100)
+ProgressBar.DrawToPeripheral()
+sleep(1)
+
+ProgressBar.SetCurValue("Temp",1100)
+ProgressBar.DrawToPeripheral()
+sleep(1)
+
+end
+end
+end

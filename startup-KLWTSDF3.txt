@@ -1,0 +1,877 @@
+    ---------------------------------------------------
+    --[[            AKW-OS By N0B0DY19             ]]--
+    --[[  (c) by N0B0DY19 www.infinitysilence.de   ]]--
+    ---------------------------------------------------
+    monitor = peripheral.warp ("top")
+    eingang = "left"
+    --]] Kabel Anschluss St?tze.
+    -- Reactoren --
+    hellgruen = 32 -- Reaktor A ON/OFF
+    gruen = 8192   -- Reaktor B ON/OFF
+    cyan = 512     -- Reaktor C ON/OFF
+    gelb = 16      -- Reaktor D ON/OFF
+    pink = 64      -- Reaktor Sicherrung
+    -- Licht --
+    weiss = 1      -- Reaktor Halle
+    orange = 2     -- Controll Raum
+    magenta = 4    -- Anzeigen
+    -- Energy --
+    hellblau = 8   -- Pumpen
+    grau = 128     -- Kuehlung
+    hellgrau = 256 -- Uranium herstellung
+    -- Freie Farben --
+    lila = 1024
+    blau = 2048
+    braun = 4096
+    rot = 16384
+    schwarz = 32768
+    --]] kabel Anschluss ENDE.
+    istwert = 0                --Interne Controlle
+    auswahl = 0                --Wartet auf eingabe
+    --]] Gui anpassungen
+    -- Licht schalter --
+    lichtposx = 5
+    lichtposy = 15
+    -- AKW steuerung --
+    akwposx = 3
+    akwposy = 8
+    -- K?hlung --
+    contposx = 19
+    contposy = 14
+    -- Notaus --
+    notausposx = 17
+    notausposy = 9
+    -- Energy Menue --
+    energyposx = 24
+    energyposy = 8
+    --[[ GUI ende
+    --]] Notaus definition
+    -- diese Farben werden bei dem bet?tigen geschaltet --
+    notaus = 0 + hellgruen + gruen + cyan + gelb + pink + hellblau + grau + hellgrau
+    allesaus = 0
+    cool1 = 0
+    test = 0
+    farbe = 0
+    zeit = 0
+    bla = 0
+    --]] Programm Start..!! [[--
+    test = rs.getBundledInput (eingang)
+    term.clear()
+    term.setTextColor(colors.lime)
+    term.setBackgroundColor(colors.green)
+     
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.5)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                  Lade Daten.                      ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.3)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                 Teste Signale                     ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.5)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                 Pruefe Version                    ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.8)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                 Pruefe Version                    ")
+print("                       OK                          ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.8)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                 Suche Updates.                    ")
+print("                       0%                          ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.5)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                 Suche Updates.                    ")
+print("                      10%                          ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.5)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                 Suche Updates.                    ")
+print("                      12%                          ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.5)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                 Suche Updates.                    ")
+print("                      15%                          ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.5)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                 Suche Updates.                    ")
+print("                      21%                          ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.5)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                 Suche Updates.                    ")
+print("                      33%                          ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.5)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                 Suche Updates.                    ")
+print("                      46%                          ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.5)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                 Suche Updates.                    ")
+print("                      50%                          ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(1)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                 Suche Updates.                    ")
+print("                      60%                          ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.2)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                 Suche Updates.                    ")
+print("                      70%                          ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.2)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                 Suche Updates.                    ")
+print("                      80%                          ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.2)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                 Suche Updates.                    ")
+print("                      88%                          ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.2)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                 Suche Updates.                    ")
+print("                      90%                          ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.2)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                 Suche Updates.                    ")
+print("                      98%                          ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.2)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                 Suche Updates.                    ")
+print("                     100%                          ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(1.5)
+term.clear()
+    term.setTextColor(colors.white)
+    term.setBackgroundColor(colors.black)
+term.clear()
+sleep(0.1)
+
+istwert = istwert + hellgruen + gruen + cyan + gelb + pink + weiss + orange + magenta + hellblau + grau + hellgrau
+allesaus = allesaus + istwert
+rs.setBundledOutput(eingang, istwert)
+
+function menu()
+    hintergrund = paintutils.loadImage("desktop")
+    paintutils.drawImage(hintergrund,1,1)
+    term.setCursorPos(1, 1)
+    term.setBackgroundColor(colors.red)
+    print("X")
+    term.setCursorPos(26, 3)
+    term.setBackgroundColor(colors.gray)
+    print("Hauptmenu")
+    term.setCursorPos(5, 6)
+    term.setBackgroundColor(colors.lightGray)
+    print("Steuerung")
+    ----------- Kontrollmenu --------------    
+    term.setCursorPos(contposx, contposy)
+    term.setBackgroundColor(colors.blue)
+    print("=========Herstellung==========")
+    term.setCursorPos(contposx, contposy+1)    
+    print("|   Kuehlzellenproduktion    |")
+    term.setCursorPos(contposx, contposy+2)    
+    print("|   Wasserpumpe              |")
+    term.setCursorPos(contposx, contposy+3)    
+    print("|   Zellen Produktion        |")
+    term.setCursorPos(contposx, contposy+4)    
+    print("==============================")
+    cooltest1()    
+    cooltest2()
+    coolzufuhrtest()
+    ----------- Reaktoren --------------
+    term.setCursorPos(blockposx, blockposy)
+    term.setBackgroundColor(colors.green)
+    print("==Reactor===")
+    term.setCursorPos(blockposx, blockposy+1)
+    print("|     A    |")
+    term.setCursorPos(blockposx, blockposy+2)
+    print("|     B    |")
+    term.setCursorPos(blockposx, blockposy+3)
+    print("|     C    |")
+    term.setCursorPos(blockposx, blockposy+4)
+    print("|     D    |")
+    term.setCursorPos(blockposx, blockposy+5)
+    print("============")
+    block1test()
+    block2test()
+    block3test()
+    block4test()
+-------------- Notaus -----------------    
+    iconnotaus = paintutils.loadImage("notaus")
+    paintutils.drawImage(iconnotaus,notausposx,notausposy)
+    term.setBackgroundColor(colors.red)
+    term.setCursorPos(notausposx+1,notausposy+1)
+    term.setTextColor(colors.orange)
+    print("NOT")
+    term.setCursorPos(notausposx+1,notausposy+2)
+    print("AUS")
+    term.setTextColor(colors.white)
+---------------Licht------------------
+    lichtschalter()    
+--------------------------------------
+-------------Energiemenu--------------------------------
+    term.setCursorPos(energieposx, energieposy)
+    term.setBackgroundColor(rot)
+    print("=====Energiemenu======")    
+    term.setCursorPos(energieposx, energieposy+1)
+    print("|   Anzeigen         |")
+    term.setCursorPos(energieposx, energieposy+2)
+    print("|   Licht Controll Ra|")
+    term.setCursorPos(energieposx, energieposy+3)
+    print("|                    |")
+    term.setCursorPos(energieposx, energieposy+4)
+    print("======================")
+    energietest()    
+    masstest()
+    if (colors.test(rs.getBundledInput(eingang), colors.orange)) then
+        farbe = gelb
+        term.setCursorPos(energieposx+2, energieposy+2)
+        term.setBackgroundColor(farbe)
+        term.setTextColor(schwarz)
+        print("X")
+        term.setTextColor(weiss)
+    else
+        farbe = rot
+        term.setCursorPos(energieposx+2, energieposy+2)
+        term.setBackgroundColor(farbe)        
+        print(" ")
+    end    
+end 
+------------------------------------------------------------------------------------------
+function licht()
+    if (colors.test(rs.getBundledInput(eingang), colors.white)) then
+        istwert = istwert - weiss
+        rs.setBundledOutput(eingang, istwert)
+    else
+        istwert = istwert + weiss
+        rs.setBundledOutput(eingang, istwert)
+    end
+end
+---------------------------------------------------------------------------------------
+function lichtschalter()
+    if (colors.test(rs.getBundledInput(eingang), colors.white)) then
+        iconlicht = paintutils.loadImage("licht")
+        paintutils.drawImage(iconlicht,lichtposx,lichtposy)
+        term.setBackgroundColor(grau)
+        term.setTextColor(orange)        
+        term.setCursorPos(lichtposx+1, lichtposy+1)
+        print("Licht")
+        term.setTextColor(weiss)
+    else
+        iconlicht = paintutils.loadImage("licht")
+        paintutils.drawImage(iconlicht,lichtposx,lichtposy)
+        term.setBackgroundColor(weiss)
+        term.setTextColor(hellgruen)        
+        term.setCursorPos(lichtposx+1, lichtposy+1)
+        print("Licht")        
+        term.setTextColor(weiss)        
+    end
+end
+--------------------------------------------------------------------
+function block1test()
+    if (colors.test(rs.getBundledInput(eingang), colors.lime)) then
+        farbe = grau
+        term.setCursorPos(blockposx+2, blockposy+1)
+        term.setBackgroundColor(farbe)
+        print("O")
+    else
+        farbe = hellgruen
+        term.setCursorPos(blockposx+2, blockposy+1)
+        term.setBackgroundColor(farbe)
+        print("X")
+    end
+end    
+---------------------------------------------------------------------------
+function block2test()
+    if (colors.test(rs.getBundledInput(eingang), colors.green)) then
+        farbe = grau
+        term.setCursorPos(blockposx+2, blockposy+2)
+        term.setBackgroundColor(farbe)
+        print("O")
+    else
+        farbe = hellgruen
+        term.setCursorPos(blockposx+2, blockposy+2)
+        term.setBackgroundColor(farbe)
+        print("X")
+        term.setCursorPos(contposx+1, contposy+3)
+        farbe = rot
+        term.setBackgroundColor(farbe)
+        print(" ")
+    end
+end    
+---------------------------------------------------------------------------
+function block3test()
+    if (colors.test(rs.getBundledInput(eingang), colors.cyan)) then
+        farbe = grau
+        term.setCursorPos(blockposx+2, blockposy+3)
+        term.setBackgroundColor(farbe)
+        print("O")
+    else
+        farbe = hellgruen
+        term.setCursorPos(blockposx+2, blockposy+3)
+        term.setBackgroundColor(farbe)
+        print("X")
+    end
+end    
+-------------------------------------------------------------------------
+function block4test()
+    if (colors.test(rs.getBundledInput(eingang), colors.pink)) then
+        farbe = grau
+        term.setCursorPos(blockposx+2, blockposy+4)
+        term.setBackgroundColor(farbe)
+        print("O")
+    else
+        farbe = hellgruen
+        term.setCursorPos(blockposx+2, blockposy+4)
+        term.setBackgroundColor(farbe)
+        print("X")
+    end
+end    
+----------------------------------------------------------------------------
+function coolzufuhrtest()
+    if (colors.test(rs.getBundledInput(eingang), colors.light.Grey)) then
+        farbe = grau
+        term.setCursorPos(contposx+2, contposy+3)
+        term.setBackgroundColor(farbe)
+        print("O")
+    else
+        farbe = gruen
+        term.setCursorPos(contposx+2, contposy+3)
+        term.setBackgroundColor(farbe)
+        print("X")
+    end    
+end    
+----------
+function coolzufuhr()
+    if (colors.test(rs.getBundledInput(eingang), colors.light.Grey)) then
+        istwert = istwert - hellgrau
+        rs.setBundledOutput(eingang, istwert)
+    else
+        istwert = istwert + hellgrau
+        rs.setBundledOutput(eingang, istwert)
+    end
+    coolzufuhrtest()
+end
+-----------------------------------------------------------------------------
+function cooltest1()  ---- Abfrage vertauscht
+    if (colors.test(rs.getBundledInput(eingang), colors.grey)) then
+        farbe = gruen
+        term.setCursorPos(contposx+2, contposy+1)
+        term.setBackgroundColor(farbe)
+        print("X")
+    else
+        farbe = grau
+        term.setCursorPos(contposx+2, contposy+1)
+        term.setBackgroundColor(farbe)
+        print("O")
+    end    
+end    
+---------
+function cool1()
+    if (colors.test(rs.getBundledInput(eingang), colors.grey)) then
+        istwert = istwert - grau
+        rs.setBundledOutput(eingang, istwert)
+    else
+        istwert = istwert + grau
+        rs.setBundledOutput(eingang, istwert)
+    end
+    cooltest1()
+end
+----------------------------------------------------------------------------
+function cooltest2()  ---- Abfrage vertauscht
+    if (colors.test(rs.getBundledInput(eingang), colors.light.Blue)) then
+        farbe = gruen
+        term.setCursorPos(contposx+2, contposy+2)
+        term.setBackgroundColor(farbe)
+        print("X")
+    else
+        farbe = grau
+        term.setCursorPos(contposx+2, contposy+2)
+        term.setBackgroundColor(farbe)
+        print("O")
+    end    
+end    
+-----------
+function cool2()
+    if (colors.test(rs.getBundledInput(eingang), colors.light.Blue)) then
+        istwert = istwert - blau
+        rs.setBundledOutput(eingang, istwert)
+    else
+        istwert = istwert + blau
+        rs.setBundledOutput(eingang, istwert)
+    end
+    cooltest2()
+end
+------------------------------------------------------------------------------------------
+function block1()
+    if (colors.test(rs.getBundledInput(eingang), colors.lime)) then
+        istwert = istwert - hellgruen
+        rs.setBundledOutput(eingang, istwert)
+    else
+        istwert = istwert + hellgruen
+        rs.setBundledOutput(eingang, istwert)
+    end
+    block1test()
+end
+------------------------------------------------------------------------------------------
+function block2()
+    if (colors.test(rs.getBundledInput(eingang), colors.green)) then
+        istwert = istwert - gruen
+        rs.setBundledOutput(eingang, istwert)
+    else
+        istwert = istwert + gruen
+        rs.setBundledOutput(eingang, istwert)
+    end
+    block2test()
+end
+------------------------------------------------------------------------------------------
+function block3()
+    if (colors.test(rs.getBundledInput(eingang), colors.cyan)) then
+        istwert = istwert - cyan
+        rs.setBundledOutput(eingang, istwert)
+    else
+        istwert = istwert + cyan
+        rs.setBundledOutput(eingang, istwert)
+    end
+    block3test()
+end
+------------------------------------------------------------------------------------------
+function block4()
+    if (colors.test(rs.getBundledInput(eingang), colors.pink)) then
+        istwert = istwert - pink
+        rs.setBundledOutput(eingang, istwert)
+    else
+        istwert = istwert + pink
+        rs.setBundledOutput(eingang, istwert)
+    end
+    block4test()
+end
+------------------------------------------------------------------------------------------
+function notausfunktion()
+    istwert = notaus
+    rs.setBundledOutput(eingang, istwert)
+    print("Alle Systeme gestoppt")
+    sleep(2)
+end
+------------------------------------------------------------------------------------------
+function energie()
+    if (colors.test(rs.getBundledInput(eingang), colors.magenta)) then
+        istwert = istwert - magenta
+        rs.setBundledOutput(eingang, istwert)
+    else
+        istwert = istwert + magenta
+        rs.setBundledOutput(eingang, istwert)
+    end
+    energietest()
+end
+-------------------------------------------------------------------------------------------
+function energietest()
+    if (colors.test(rs.getBundledInput(eingang), colors.magenta)) then
+        farbe = grau
+        term.setCursorPos(energieposx+2, energieposy+3)
+        term.setBackgroundColor(farbe)
+        print("O")
+    else
+        farbe = gruen
+        term.setCursorPos(energieposx+2, energieposy+3)
+        term.setBackgroundColor(farbe)
+        print("X")
+    end    
+end    
+--------------------------------------------------------------------------------------------
+function mass()
+    if (colors.test(rs.getBundledInput(eingang), colors.orange)) then
+        istwert = istwert - orange
+        rs.setBundledOutput(eingang, istwert)
+    else
+        istwert = istwert + orange
+        rs.setBundledOutput(eingang, istwert)
+    end
+    masstest()
+end
+-------------------------------------------------------------------------------------------
+function masstest()
+    if (colors.test(rs.getBundledInput(eingang), colors.orange)) then
+        farbe = grau
+        term.setCursorPos(energieposx+2, energieposy+1)
+        term.setBackgroundColor(farbe)
+        print("O")
+    else
+        farbe = gruen
+        term.setCursorPos(energieposx+2, energieposy+1)
+        term.setBackgroundColor(farbe)
+        print("X")
+    end    
+end    
+--------------------------------------------------------------------------------------------
+
+function zeittest()
+    term.setCursorPos(46, 6)
+    term.setBackgroundColor(schwarz)
+    term.setTextColor(weiss)
+    print(zeit)
+    zeit = zeit + 1    
+end
+
+while bla == 0 do
+    term.clear()
+    menu()
+    zeittest()
+    local event, button, X, Y = os.pullEventRaw()
+        if event == "mouse_click" then
+            if X == blockposx+2 and Y==blockposy+1 and button == 1 then  -- Abfrage Knopf 1
+                block1()
+            elseif X == blockposx+2 and Y==blockposy+2 and button == 1 then  -- Abfrage Knopf 2
+                block2()
+            elseif X == blockposx+2 and Y==blockposy+3 and button == 1 then  -- Abfrage Knopf 3
+                block3()
+            elseif X == blockposx+2 and Y==blockposy+4 and button == 1 then  -- Abfrage Knopf 4
+                block4()
+            elseif X == contposx+2 and Y==contposy+1 and button == 1 then  -- Abfrage K�hlzellen 1    
+                cool1()
+            elseif X == contposx+2 and Y==contposy+2 and button == 1 then  -- Abfrage K�hlzellen 2
+                cool2()
+            elseif X == contposx+2 and Y==contposy+3 and button == 1 then  -- Abfrage K�hlzellen zufuhr
+                coolzufuhr()    
+            elseif X == energieposx+2 and Y==energieposy+3 and button == 1 then  -- Abfrage Energietransfer
+                energie()
+            elseif X == energieposx+2 and Y==energieposy+1 and button == 1 then  -- Massfabricator
+                mass()
+            elseif X >=notausposx+1 and X <=notausposx+3 and button == 1 and Y >= notausposy+1 and Y <= notausposy+2 then
+                notausfunktion()
+            elseif X >=lichtposx+1 and X <=lichtposx+6 and button == 1 and Y == lichtposy+1 then
+                licht()
+            elseif X == 1 and Y == 1 and button == 1 then
+                print("..")
+            sleep(1)
+            break
+            end
+        end    
+    if (colors.test(rs.getBundledInput(eingang), colors.grey)) or (colors.test(rs.getBundledInput(eingang), colors.light.Blue))then
+        term.setCursorPos(36, 7)
+        print("Error")
+    else    
+        term.setCursorPos(36, 7)
+        print("laueft")
+    end
+    farbe = schwarz
+    term.setBackgroundColor(farbe)    
+end  -- while

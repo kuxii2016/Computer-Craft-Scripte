@@ -1,0 +1,94 @@
+local monitor
+local hasMonitor = false
+local ProgressBar = {}
+local FillColor = colors.orange
+local EmptyColor = colors.blue
+local TextColor = colors.white
+
+function SetPeripheral(side)
+  if (peripheral.isPresent(side)) then
+    monitor = peripheral.wrap(side)
+    hasMonitor = true
+  end
+end
+
+function SetTable(name, maxVal, curVal, xmin, xmax, y)
+  ProgressBar[name] = {}
+  ProgressBar[name]["Max"] = maxVal
+  ProgressBar[name]["Current"] = curVal
+  ProgressBar[name]["XMin"] = xmin
+  ProgressBar[name]["XMax"] = xmax
+  ProgressBar[name]["YVal"] = y
+end
+
+function ClearTable()
+  if (hasMonitor) then
+    ProgressBar = {}
+  end
+end
+
+function SetFillColor(color)
+  if (colors.combine(color,color)) then  
+    FillColor = color
+  end
+end
+
+function SetEmptyColor(color)
+  if (colors.combine(color,color)) then
+    EmptyColor = color
+  end
+end
+
+function SetTextColor(color)
+  if (colors.combine(color,color)) then
+    TextColor = color
+  end
+end
+
+function SetMaxValue(name, intVal)
+  if (ProgressBar[name]) then
+    ProgressBar[name]["Max"] = intVal
+  end
+end
+
+function SetCurValue(name, intVal)
+  if (ProgressBar[name]) then
+    ProgressBar[name]["Current"] = intVal
+  end
+end
+
+function DrawToPeripheral()
+  if (hasMonitor) then
+    for name, data in pairs(ProgressBar) do
+      DrawBar(name, data)
+    end
+  end
+end
+
+function DrawBar(name, arr)
+  local y = arr["YVal"]
+  local fill = math.floor((arr["XMax"] - arr["XMin"]) * (arr["Current"] / arr["Max"]))
+  
+  monitor.setBackgroundColor(FillColor)
+  monitor.setTextColor(TextColor)
+  
+  for x = arr["XMin"], arr["XMax"] do
+    local num = math.floor(x - arr["XMin"])
+    monitor.setCursorPos(x,y)
+    
+    if (num > fill) then
+      monitor.setBackgroundColor(EmptyColor)
+    end
+    
+    if (num == 0) then
+      monitor.write("[")
+    end
+    if (x == arr["XMax"]) then
+      monitor.write("]")
+    else
+      monitor.write(" ")
+    end
+  end
+  
+  monitor.setBackgroundColor(colors.black)
+end

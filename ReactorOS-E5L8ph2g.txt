@@ -1,0 +1,848 @@
+eingang = "back"	-- Eingang des Hauptkabels
+schalter = "top"	-- Reaktorstop
+
+weiss = 1			--  Licht
+orange = 2			--  MFSU 1
+magenta = 4			--  Wasserpumpen K�hlzellenproduktion 1
+hellblau = 8		--  Kammer 3
+gelb = 16			--  Kuehlzellen Produktion 2 passiv
+hellgruen = 32		--  Kuelzellen Produktion 1 passiv
+pink = 64			--  Kuelzellenzufuhr  (immer an)
+grau = 128			--  Kammer 2
+hellgrau = 256		--  Kammer 1
+cyan = 512			--  Energietransfer MFSUs
+lila = 1024			--  Mass Fabricator
+blau = 2048			--  Kammer 4
+braun = 4096		--  Alarm
+gruen = 8192		--  Redstone Produktionspumpen (immer an)
+rot = 16384			--  Wasserpumpen Kuehlzellenproduktion 2
+schwarz = 32768 	--  Monitore
+
+istwert = 0			-- interne kontrolle
+auswahl = 0			-- erwartet eingabe
+
+--------------Position Lichtschalter
+lichtposx = 5
+lichtposy = 15
+
+-------------Position Blocksteuerung--------------------------
+blockposx = 3
+blockposy = 8
+
+------------Position Kuehlzellen------------------------------
+contposx = 19
+contposy = 14
+
+----------Position Notaus----------------------------------
+notausposx = 17
+notausposy = 9
+-----------Position Energiemenu------------------
+energieposx = 24
+energieposy = 8
+
+notaus = 0 + grau + hellgrau + hellblau + blau + gruen + schwarz + cyan + lila + weiss
+
+allesaus = 0
+cool1 = 0
+test = 0
+farbe = 0
+zeit = 0
+bla = 0
+--                     Programm Start                     --
+test = rs.getBundledInput(eingang)
+term.setTextColor(colors.orange)
+term.setBackgroundColor(colors.gray)
+print("===================================================", test)
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(1)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                --LadeProgramm--                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.5)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("             --Teste Input/output--                ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.5)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("       --Durchsuche System auf Fehler--            ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.5)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                |X             |                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.1)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                |XX            |                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.2)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                |XXX           |                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.5)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                |XXXX          |                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(1)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                |XXXXX         |                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.8)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                |XXXXXX        |                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.5)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                |XXXXXXX       |                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.4)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                |XXXXXXXX      |                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.3)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                |XXXXXXXXX     |                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.9)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                |XXXXXXXXXX    |                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.7)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                |XXXXXXXXXXX   |                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.1)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                |XXXXXXXXXXXX  |                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.6)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                |XXXXXXXXXXXXX |                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.2)
+term.clear()
+print("===================================================")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                  -ReactorOS-                      ")
+print("                     V.0.01                        ")
+print("                |XXXXXXXXXXXXXX|                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("                                                   ")
+print("===================================================")
+sleep(0.3)
+term.clear()
+sleep(0.1)
+
+istwert = istwert + grau + hellgrau + hellblau + blau + gruen + schwarz + cyan +lila
+allesaus = allesaus + istwert
+rs.setBundledOutput(eingang, istwert)
+
+function menu()
+	hintergrund = paintutils.loadImage("desktop")
+    paintutils.drawImage(hintergrund,1,1)
+	term.setCursorPos(1, 1)
+	term.setBackgroundColor(rot)
+	print("X")
+	term.setCursorPos(26, 3)
+	term.setBackgroundColor(grau)
+	print("Hauptmenu")
+	term.setCursorPos(5, 6)
+	term.setBackgroundColor(hellgrau)
+	print("Steuerung")
+	-------------------------------------------------
+	-------Kontrollmenu----------------------------------	
+	term.setCursorPos(contposx, contposy)
+	term.setBackgroundColor(blau)
+	print"=========Kuehlzellen=========="
+	term.setCursorPos(contposx, contposy+1)	
+	print("|   Kuehlzellenproduktion    |")
+	term.setCursorPos(contposx, contposy+2)	
+	print("|   Wasserpumpe              |")
+	term.setCursorPos(contposx, contposy+3)	
+	print("|   Kuehlzellenzufuhr        |")
+	term.setCursorPos(contposx, contposy+4)	
+	print"=============================="
+	cooltest1()	
+	cooltest2()
+	coolzufuhrtest()
+	------------------------------------------------------
+	-------Blockmenu---------------------------------
+	term.setCursorPos(blockposx, blockposy)
+	term.setBackgroundColor(gruen)
+	print("==Reactor===")
+	term.setCursorPos(blockposx, blockposy+1)
+	print("|     A    |")
+	term.setCursorPos(blockposx, blockposy+2)
+	print("|     B    |")
+	term.setCursorPos(blockposx, blockposy+3)
+	print("|     C    |")
+	term.setCursorPos(blockposx, blockposy+4)
+	print("|     D    |")
+	term.setCursorPos(blockposx, blockposy+5)
+	print("============")
+	block1test()
+	block2test()
+	block3test()
+	block4test()
+------------------------------------------------------------
+-------------------Notaus ----------------------------------	
+	iconnotaus = paintutils.loadImage("notaus")
+	paintutils.drawImage(iconnotaus,notausposx,notausposy)
+	term.setBackgroundColor(rot)
+	term.setCursorPos(notausposx+1,notausposy+1)
+	term.setTextColor(orange)
+	print("NOT")
+	term.setCursorPos(notausposx+1,notausposy+2)
+	print("AUS")
+	term.setTextColor(weiss)
+------------------------------------------------------
+---------------Licht----------------------------------
+	lichtschalter()	
+--------------------------------------------------------
+-------------Energiemenu--------------------------------
+	term.setCursorPos(energieposx, energieposy)
+	term.setBackgroundColor(rot)
+	print("=====Energiemenu======")	
+	term.setCursorPos(energieposx, energieposy+1)
+	print("|   Massfabricator   |")
+	term.setCursorPos(energieposx, energieposy+2)
+	print("|   MFSU R2 geladen? |")
+	term.setCursorPos(energieposx, energieposy+3)
+	print("|   E.Transfer R1-R2 |")
+	term.setCursorPos(energieposx, energieposy+4)
+	print("======================")
+	energietest()	
+	masstest()
+	if (colors.test(rs.getBundledInput(eingang), colors.orange)) then
+		farbe = gelb
+		term.setCursorPos(energieposx+2, energieposy+2)
+		term.setBackgroundColor(farbe)
+		term.setTextColor(schwarz)
+		print("X")
+		term.setTextColor(weiss)
+	else
+		farbe = rot
+		term.setCursorPos(energieposx+2, energieposy+2)
+		term.setBackgroundColor(farbe)		
+		print(" ")
+	end	
+end 		
+------------------------------------------------------------------------------------------
+function licht()
+	if (colors.test(rs.getBundledInput(eingang), colors.white)) then
+		istwert = istwert - weiss
+		rs.setBundledOutput(eingang, istwert)
+	else
+		istwert = istwert + weiss
+		rs.setBundledOutput(eingang, istwert)
+	end
+end
+---------------------------------------------------------------------------------------
+function lichtschalter()
+	if (colors.test(rs.getBundledInput(eingang), colors.white)) then
+		iconlicht = paintutils.loadImage("licht")
+		paintutils.drawImage(iconlicht,lichtposx,lichtposy)
+		term.setBackgroundColor(grau)
+		term.setTextColor(orange)		
+		term.setCursorPos(lichtposx+1, lichtposy+1)
+		print("Licht")
+		term.setTextColor(weiss)
+	else
+		iconlicht = paintutils.loadImage("licht")
+		paintutils.drawImage(iconlicht,lichtposx,lichtposy)
+		term.setBackgroundColor(weiss)
+		term.setTextColor(hellgruen)		
+		term.setCursorPos(lichtposx+1, lichtposy+1)
+		print("Licht")		
+		term.setTextColor(weiss)		
+	end
+end
+--------------------------------------------------------------------
+function block1test()
+	if (colors.test(rs.getBundledInput(eingang), colors.lightGray)) then
+		farbe = grau
+		term.setCursorPos(blockposx+2, blockposy+1)
+		term.setBackgroundColor(farbe)
+		print("O")
+	else
+		farbe = hellgruen
+		term.setCursorPos(blockposx+2, blockposy+1)
+		term.setBackgroundColor(farbe)
+		print("X")
+	end
+end	
+---------------------------------------------------------------------------
+function block2test()
+	if (colors.test(rs.getBundledInput(eingang), colors.gray)) then
+		farbe = grau
+		term.setCursorPos(blockposx+2, blockposy+2)
+		term.setBackgroundColor(farbe)
+		print("O")
+	else
+		farbe = hellgruen
+		term.setCursorPos(blockposx+2, blockposy+2)
+		term.setBackgroundColor(farbe)
+		print("X")
+		term.setCursorPos(contposx+1, contposy+3)
+		farbe = rot
+		term.setBackgroundColor(farbe)
+		print(" ")
+	end
+end	
+---------------------------------------------------------------------------
+function block3test()
+	if (colors.test(rs.getBundledInput(eingang), colors.lightBlue)) then
+		farbe = grau
+		term.setCursorPos(blockposx+2, blockposy+3)
+		term.setBackgroundColor(farbe)
+		print("O")
+	else
+		farbe = hellgruen
+		term.setCursorPos(blockposx+2, blockposy+3)
+		term.setBackgroundColor(farbe)
+		print("X")
+	end
+end	
+-------------------------------------------------------------------------
+function block4test()
+	if (colors.test(rs.getBundledInput(eingang), colors.blue)) then
+		farbe = grau
+		term.setCursorPos(blockposx+2, blockposy+4)
+		term.setBackgroundColor(farbe)
+		print("O")
+	else
+		farbe = hellgruen
+		term.setCursorPos(blockposx+2, blockposy+4)
+		term.setBackgroundColor(farbe)
+		print("X")
+	end
+end	
+----------------------------------------------------------------------------
+function coolzufuhrtest()  ---- Abfrage vertauscht
+	if (colors.test(rs.getBundledInput(eingang), colors.pink)) then
+		farbe = grau
+		term.setCursorPos(contposx+2, contposy+3)
+		term.setBackgroundColor(farbe)
+		print("O")
+	else
+		farbe = gruen
+		term.setCursorPos(contposx+2, contposy+3)
+		term.setBackgroundColor(farbe)
+		print("X")
+	end	
+end	
+----------
+function coolzufuhr()
+	if (colors.test(rs.getBundledInput(eingang), colors.pink)) then
+		istwert = istwert - pink
+		rs.setBundledOutput(eingang, istwert)
+	else
+		istwert = istwert + pink
+		rs.setBundledOutput(eingang, istwert)
+	end
+	coolzufuhrtest()
+end
+-----------------------------------------------------------------------------
+function cooltest1()  ---- Abfrage vertauscht
+	if (colors.test(rs.getBundledInput(eingang), colors.magenta)) then
+		farbe = gruen
+		term.setCursorPos(contposx+2, contposy+1)
+		term.setBackgroundColor(farbe)
+		print("X")
+	else
+		farbe = grau
+		term.setCursorPos(contposx+2, contposy+1)
+		term.setBackgroundColor(farbe)
+		print("O")
+	end	
+end	
+---------
+function cool1()
+	if (colors.test(rs.getBundledInput(eingang), colors.magenta)) then
+		istwert = istwert - magenta
+		rs.setBundledOutput(eingang, istwert)
+	else
+		istwert = istwert + magenta
+		rs.setBundledOutput(eingang, istwert)
+	end
+	cooltest1()
+end
+----------------------------------------------------------------------------
+function cooltest2()  ---- Abfrage vertauscht
+	if (colors.test(rs.getBundledInput(eingang), colors.red)) then
+		farbe = gruen
+		term.setCursorPos(contposx+2, contposy+2)
+		term.setBackgroundColor(farbe)
+		print("X")
+	else
+		farbe = grau
+		term.setCursorPos(contposx+2, contposy+2)
+		term.setBackgroundColor(farbe)
+		print("O")
+	end	
+end	
+-----------
+function cool2()
+	if (colors.test(rs.getBundledInput(eingang), colors.red)) then
+		istwert = istwert - rot
+		rs.setBundledOutput(eingang, istwert)
+	else
+		istwert = istwert + rot
+		rs.setBundledOutput(eingang, istwert)
+	end
+	cooltest2()
+end
+------------------------------------------------------------------------------------------
+function block1()
+	if (colors.test(rs.getBundledInput(eingang), colors.lightGray)) then
+		istwert = istwert - hellgrau
+		rs.setBundledOutput(eingang, istwert)
+	else
+		istwert = istwert + hellgrau
+		rs.setBundledOutput(eingang, istwert)
+	end
+	block1test()
+end
+------------------------------------------------------------------------------------------
+function block2()
+	if (colors.test(rs.getBundledInput(eingang), colors.gray)) then
+		istwert = istwert - grau
+		rs.setBundledOutput(eingang, istwert)
+	else
+		istwert = istwert + grau
+		rs.setBundledOutput(eingang, istwert)
+	end
+	block2test()
+end
+------------------------------------------------------------------------------------------
+function block3()
+	if (colors.test(rs.getBundledInput(eingang), colors.lightBlue)) then
+		istwert = istwert - hellblau
+		rs.setBundledOutput(eingang, istwert)
+	else
+		istwert = istwert + hellblau
+		rs.setBundledOutput(eingang, istwert)
+	end
+	block3test()
+end
+------------------------------------------------------------------------------------------
+function block4()
+	if (colors.test(rs.getBundledInput(eingang), colors.blue)) then
+		istwert = istwert - blau
+		rs.setBundledOutput(eingang, istwert)
+	else
+		istwert = istwert + blau
+		rs.setBundledOutput(eingang, istwert)
+	end
+	block4test()
+end
+------------------------------------------------------------------------------------------
+function notausfunktion()
+	istwert = notaus
+	rs.setBundledOutput(eingang, istwert)
+	print("Alle Systeme gestoppt")
+	sleep(2)
+end
+------------------------------------------------------------------------------------------
+function energie()
+	if (colors.test(rs.getBundledInput(eingang), colors.cyan)) then
+		istwert = istwert - cyan
+		rs.setBundledOutput(eingang, istwert)
+	else
+		istwert = istwert + cyan
+		rs.setBundledOutput(eingang, istwert)
+	end
+	energietest()
+end
+-------------------------------------------------------------------------------------------
+function energietest()
+	if (colors.test(rs.getBundledInput(eingang), colors.cyan)) then
+		farbe = grau
+		term.setCursorPos(energieposx+2, energieposy+3)
+		term.setBackgroundColor(farbe)
+		print("O")
+	else
+		farbe = gruen
+		term.setCursorPos(energieposx+2, energieposy+3)
+		term.setBackgroundColor(farbe)
+		print("X")
+	end	
+end	
+--------------------------------------------------------------------------------------------
+function mass()
+	if (colors.test(rs.getBundledInput(eingang), colors.purple)) then
+		istwert = istwert - lila
+		rs.setBundledOutput(eingang, istwert)
+	else
+		istwert = istwert + lila
+		rs.setBundledOutput(eingang, istwert)
+	end
+	masstest()
+end
+-------------------------------------------------------------------------------------------
+function masstest()
+	if (colors.test(rs.getBundledInput(eingang), colors.purple)) then
+		farbe = grau
+		term.setCursorPos(energieposx+2, energieposy+1)
+		term.setBackgroundColor(farbe)
+		print("O")
+	else
+		farbe = gruen
+		term.setCursorPos(energieposx+2, energieposy+1)
+		term.setBackgroundColor(farbe)
+		print("X")
+	end	
+end	
+--------------------------------------------------------------------------------------------
+
+function zeittest()
+	term.setCursorPos(46, 6)
+	term.setBackgroundColor(schwarz)
+	term.setTextColor(weiss)
+	print(zeit)
+	zeit = zeit + 1	
+end
+
+while bla == 0 do
+	term.clear()
+	menu()
+	zeittest()
+	local event, button, X, Y = os.pullEventRaw()
+        if event == "mouse_click" then
+			if X == blockposx+2 and Y==blockposy+1 and button == 1 then  -- Abfrage Knopf 1
+				block1()
+			elseif X == blockposx+2 and Y==blockposy+2 and button == 1 then  -- Abfrage Knopf 2
+				block2()
+			elseif X == blockposx+2 and Y==blockposy+3 and button == 1 then  -- Abfrage Knopf 3
+				block3()
+			elseif X == blockposx+2 and Y==blockposy+4 and button == 1 then  -- Abfrage Knopf 4
+				block4()
+			elseif X == contposx+2 and Y==contposy+1 and button == 1 then  -- Abfrage K�hlzellen 1	
+				cool1()
+			elseif X == contposx+2 and Y==contposy+2 and button == 1 then  -- Abfrage K�hlzellen 2
+				cool2()
+			elseif X == contposx+2 and Y==contposy+3 and button == 1 then  -- Abfrage K�hlzellen zufuhr
+				coolzufuhr()	
+			elseif X == energieposx+2 and Y==energieposy+3 and button == 1 then  -- Abfrage Energietransfer
+				energie()
+			elseif X == energieposx+2 and Y==energieposy+1 and button == 1 then  -- Massfabricator
+				mass()
+			elseif X >=notausposx+1 and X <=notausposx+3 and button == 1 and Y >= notausposy+1 and Y <= notausposy+2 then
+				notausfunktion()
+			elseif X >=lichtposx+1 and X <=lichtposx+6 and button == 1 and Y == lichtposy+1 then
+				licht()
+			elseif X == 1 and Y == 1 and button == 1 then
+				print("Waaaas bis du wahnsinnig? Spakooo... ")
+			sleep(1)
+			break
+			end
+		end	
+	if (colors.test(rs.getBundledInput(eingang), colors.yellow)) or (colors.test(rs.getBundledInput(eingang), colors.lime))then
+		term.setCursorPos(36, 7)
+		print("Error")
+	else	
+		term.setCursorPos(36, 7)
+		print("laueft")
+	end
+	farbe = schwarz
+	term.setBackgroundColor(farbe)	
+end  -- while
