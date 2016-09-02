@@ -81,16 +81,8 @@ animation_length 	= 4					--Dauer der Animation (>= 5 - sonst kann es probleme b
 pos 				= -25				--Startposition
 pos_max				= 70				--Endposition
 
--- Bild animation 
-Bild_Saege= paintutils.loadImage("Dano742.img")
-Bild_Drill= paintutils.loadImage("Dano742_2.img")
 
-x_1 = -45			--Säge Koordinaten
-y_1 = 4
-
-x_2 = 146			-- Drill Koordinaten
-y_2 = 4
-
+--no Animation to long to Boot the PC
 --Nicht verändern
 
 count_storage = 0 
