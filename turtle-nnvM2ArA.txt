@@ -1,5 +1,0 @@
-x = 0
-while x < 1 do 
-turtle.detect()
-turtle.dig()
-end
