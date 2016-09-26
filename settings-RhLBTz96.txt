@@ -27,7 +27,7 @@ True
 trial
 
 #Logs
-Fale
+False
 
 #Auto Update
 false
